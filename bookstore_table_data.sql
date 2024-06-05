@@ -3,7 +3,7 @@
 -- Create the Users table 
 CREATE TABLE BS.Users (
     UserID INT PRIMARY KEY,
-    UserName VARCHAR(60) NOT NULL,
+    UserName VARCHAR(60) NOT NULL UNIQUE,
     UserType VARCHAR(20) NOT NULL
 );
 
