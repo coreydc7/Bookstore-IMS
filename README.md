@@ -68,6 +68,8 @@ We will be using Maven to manage the build of our project as well as further dep
 
 For front-end development, HTML/CSS will be useful for webpage design and Javascript for embedded functionality and presentation of API responses. Back-end development will see the use of Java Servlets to handle requests/responses sent from our server and database.
 
+The database will employ a relational database schema to construct and design our bookstore functionality. As a result we planned on using MySQL to operate with our database and make adjustments to our data.
+
 This will be handled using the Java Database Connectivity (JDBC) API for executing our queries from our server.
 
 
