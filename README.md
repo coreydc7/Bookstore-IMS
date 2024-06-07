@@ -62,7 +62,20 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+This project will consist of an interactive and dynamic website allowing users to search, checkout, and view various books within the system. Alongside support for bookstores employees to manage, add, delete, and edit users and books. 
+
+We will be using Maven to manage the build of our project as well as further dependencies. As per deployment of our server we will be using Apache Tomcat 8.5.50 for processesing and deploying our application. 
+
+For front-end development, HTML/CSS will be useful for webpage design and Javascript for embedded functionality and presentation of API responses. Back-end development will see the use of Java Servlets to handle requests/responses sent from our server and database.
+
+The database will employ a relational database schema to construct and design our bookstore functionality. As a result we planned on using MySQL to operate with our database and make adjustments to our data.
+
+This will be handled using the Java Database Connectivity (JDBC) API for executing our queries from our server.
+
+
+![Image of landing page for Bookstore](https://github.com/coreydc7/Bookstore-IMS/assets/106626355/fe538cc1-4ae1-49e1-9ce1-6fb67377c83c)
+
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
