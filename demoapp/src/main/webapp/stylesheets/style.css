@@ -1,0 +1,39 @@
+:root {
+    --bodyColor: grey;
+    --navbarColor: black;
+    --fontColor: white;
+    --bodyFont: 'Cardo', serif;
+    --headerFont: 'Oswald', sans-serif;
+}
+
+body {
+    background-color: var(--bodyColor);
+    font-family: var(--bodyFont);
+    text-align: center;
+}
+
+#main-navbar {
+    background-color: var(--navbarColor);
+    display: inline-block;
+    padding-left: 10px;
+    text-align: center;
+    font-family: var(--headerFont);
+    width:100%;
+}
+
+#main-navbar a {
+    text-decoration: none;
+    color: var(--fontColor);
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 0 10px;
+}
+
+#main-homepage {
+    font-family: var(--bodyFont);
+}
+
+#main-homepage h1, h3 {
+    font-family: var(--headerFont);
+}
