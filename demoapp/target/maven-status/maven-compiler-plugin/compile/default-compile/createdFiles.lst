@@ -1,4 +1,6 @@
 main\java\com\bs\ims\JavaServlets\BookSearchServlet.class
 main\java\com\bs\ims\model\Checkout.class
 main\java\com\bs\ims\model\Book.class
+main\java\com\bs\ims\JDBC_Authentication.class
+main\java\com\bs\ims\JavaServlets\MemberLoginServlet.class
 main\java\com\bs\ims\model\Member.class
