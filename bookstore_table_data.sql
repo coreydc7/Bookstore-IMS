@@ -44,10 +44,6 @@ delete from IMS_Members;
 delete from IMS_Books;
 delete from IMS_Checkout;
 
--- Populate Members table
-INSERT INTO IMS_Members (UserName, UserType, Pass) VALUES
-('coreydc7','Admin','password'),('FrostyNoFace','Admin','pass123'),('Corey','Member','password'),('Colton','Member','pass123');
-
 -- Populate Books table
 INSERT INTO IMS_Books (BookID, Title, Publisher, ISBN, Format, BookLanguage, Lexile) VALUES
 (1,'The Hobbit (The Lord of the Rings)','Clarion Books; Young Reader ed. edition (August 15, 2002)','978-0618260300','Paperback','English',1000),

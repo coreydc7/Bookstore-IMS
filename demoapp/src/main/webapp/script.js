@@ -83,9 +83,6 @@ function handleLoginAttempt(data) {
         sessionStorage.setItem('isLoggedIn','true');
         sessionStorage.setItem('loginName',data.username);
         sessionStorage.setItem('loginType',data.type);
-
-        // Debug
-        console.log(checkLoginState());
         
         updateNavbar();
         loginResultDiv.innerHTML = "Successfully logged in as " + data.username + " - " + data.type;

@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 
 import main.java.com.bs.ims.JDBC_Authentication;
 import main.java.com.bs.ims.model.Member;
+import main.java.com.bs.ims.model.HashPassword;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -54,6 +55,9 @@ public class MemberRegisterServlet extends HttpServlet {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
+        // Hash and Salt the password using BCrypt
+        String hashedPassword = HashPassword.hashPassword(password);
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -69,7 +73,7 @@ public class MemberRegisterServlet extends HttpServlet {
             statement = connection.prepareStatement(sql);
             statement.setString(1,username);
             statement.setString(2,"Member");
-            statement.setString(3,password);
+            statement.setString(3,hashedPassword);
 
             // Execute Update Query
             int rowsAffected = statement.executeUpdate();
