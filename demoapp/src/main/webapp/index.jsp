@@ -20,8 +20,7 @@
             <a href="index.jsp">Home</a>
             <a href="inventory.jsp">Inventory</a>
             <a href="about.jsp">Contact</a>
-            <a href="login.jsp">Log In</a>
-            <a href="register.jsp">Register</a>
+            <a id="authButton"></a>
         </nav>
     </header>
     <div id="main-homepage">

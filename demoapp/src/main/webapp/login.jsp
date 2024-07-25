@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="description"
-        content="Login page for our Bookstore IMS">
+        content="Log into an account">
     <meta name="keywords" content="HTML,CSS,JavaScript,Java,MySQL,Apache Tomcat,Servlets">
     <meta name="author" content="Corey Collins">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,8 +20,7 @@
             <a href="index.jsp">Home</a>
             <a href="inventory.jsp">Inventory</a>
             <a href="about.jsp">Contact</a>
-            <a href="login.jsp">Log In</a>
-            <a href="register.jsp">Register</a>
+            <a id="authButton"></a>
         </nav>
     </header>
     <div id="main-homepage">
@@ -32,6 +31,9 @@
         <input type="password" id="passwordInput" placeholder="Password:">
         <button onclick="login()">Login</button>
         <div id="loginResult"></div>
+
+
+        <h3>Don't have an account? <a href="register.jsp">Register today!</a></h3>
     </div>
 
 </body>
