@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.com.bs.ims.JDBC_Authentication;
 import main.java.com.bs.ims.model.Book;
 import com.google.gson.Gson;
 
@@ -19,14 +20,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/searchBooks")
 public class BookSearchServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // Populate with Database Connection information for JDBC
-	private static final String JDBC_URL = "";
-    private static final String JDBC_USERNAME = "";
-    private static final String JDBC_PASSWORD = "";
+    public static final JDBC_Authentication jdbcConnection = new JDBC_Authentication();
+	private static final String JDBC_URL = jdbcConnection.getURL();
+    private static final String JDBC_USERNAME = jdbcConnection.getUsername();
+    private static final String JDBC_PASSWORD = jdbcConnection.getPassword();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userInput = request.getParameter("userInput");
@@ -35,6 +36,7 @@ public class BookSearchServlet extends HttpServlet {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
