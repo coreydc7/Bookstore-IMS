@@ -23,5 +23,15 @@
   <servlet-name>MemberLoginServlet</servlet-name>
   <url-pattern>/login</url-pattern>
 </servlet-mapping> 
-  
+
+<servlet>
+  <servlet-name>MemberRegisterServlet</servlet-name>
+  <servlet-class>main.java.com.bs.ims.JavaServlets.MemberRegisterServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>MemberRegisterServlet</servlet-name>
+  <url-pattern>/register</url-pattern>
+</servlet-mapping>
+
 </web-app>

@@ -50,13 +50,55 @@ public class MemberLoginServlet extends HttpServlet {
         String username = jsonObject.get("username").getAsString();
         String password = jsonObject.get("password").getAsString();
 
-        // Debug
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
+        Member memberResult = null;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            // Establish a connection with the database
+            connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
+
+            // Create a PreparedStatement
+            String sql = "SELECT * FROM IMS_Members WHERE UserName = ? AND Pass = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,username);
+            statement.setString(2,password);
+
+            // Execute Query and store in ResultSet
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String foundUser = resultSet.getString("UserName");
+                String foundType = resultSet.getString("UserType");
+                String foundPass = resultSet.getString("Pass");
+
+                memberResult = new Member(foundUser,foundType,foundPass);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close all resources
+            try { if (resultSet != null) resultSet.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (statement != null) statement.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+        }
+
+        // Convert memberResult into JSON and send as a response. Will be null if nothing found
+        Gson gson = new Gson();
+        String jsonResult = gson.toJson(memberResult);
 
         // Send back a response to the client
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"status\":\"success\"}");
+        PrintWriter out = response.getWriter();
+        out.print(jsonResult);
+        out.flush();
     }
 }

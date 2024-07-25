@@ -2,10 +2,16 @@
 CREATE DATABASE Bookstore_IMS;
 USE Bookstore_IMS;
 
+-- Reset tables
+DROP TABLE IMS_Checkout;
+DROP TABLE IMS_Members;
+DROP TABLE IMS_Books;
+
 -- Create the Members table 
 CREATE TABLE IMS_Members (
     UserName VARCHAR(60) PRIMARY KEY,
-    UserType VARCHAR(20) NOT NULL
+    UserType VARCHAR(20) NOT NULL,
+    Pass VARCHAR(60) NOT NULL
 );
 
 -- Create the Books table (Contains all book details)
@@ -39,8 +45,8 @@ delete from IMS_Books;
 delete from IMS_Checkout;
 
 -- Populate Members table
-INSERT INTO IMS_Members (UserName, UserType) VALUES
-('coreydc7','Admin'),('FrostyNoFace','Admin'),('Corey','Member'),('Colton','Member');
+INSERT INTO IMS_Members (UserName, UserType, Pass) VALUES
+('coreydc7','Admin','password'),('FrostyNoFace','Admin','pass123'),('Corey','Member','password'),('Colton','Member','pass123');
 
 -- Populate Books table
 INSERT INTO IMS_Books (BookID, Title, Publisher, ISBN, Format, BookLanguage, Lexile) VALUES

@@ -36,16 +36,19 @@ function displaySearchBookResult(books) {
     }
 }
 
+
+
+
 function login() {
     var usernameInput = document.getElementById('usernameInput').value.trim();
     var passwordInput = document.getElementById('passwordInput').value.trim();
-
+    
     // Creates an object to hold the entered login details
     const loginData = {
         username: usernameInput,
         password: passwordInput
     };
-
+    
     // Send a POST request using Fetch API
     fetch('/demoapp/login', {
         method: "POST",
@@ -73,16 +76,108 @@ function login() {
 function handleLoginAttempt(data) {
     var loginResultDiv = document.getElementById('loginResult');
     loginResultDiv.innerHTML = "";
-
-    if(data.length === 0) {
-        loginResultDiv.textContent = "No members found."
+    
+    if(data === null) {
+        loginResultDiv.innerHTML = "Failed to sign in. Please try again."
     } else {
-        var resultList = document.createElement('ul');
-        data.forEach(member => {
-            var listItem = document.createElement('li');
-            listItem.textContent = member.username;
-            resultList.appendChild(listItem);
-        });
-        loginResultDiv.appendChild(resultList);
+        sessionStorage.setItem('isLoggedIn','true');
+        sessionStorage.setItem('loginName',data.username);
+        sessionStorage.setItem('loginType',data.type);
+
+        // Debug
+        console.log(checkLoginState());
+        
+        updateNavbar();
+        loginResultDiv.innerHTML = "Successfully logged in as " + data.username + " - " + data.type;
     }
+}
+
+function register() {
+    var usernameInput = document.getElementById('usernameInput').value.trim();
+    var passwordInput = document.getElementById('passwordInput').value.trim();
+    var confirmInput = document.getElementById('confirmInput').value.trim();
+    
+    // Check 'confirm password' field
+    if(passwordInput != confirmInput) {
+        var registerResultDiv = document.getElementById('registerResult');
+        registerResultDiv.innerHTML = "Passwords do not match."
+    }
+    else {
+        // Create an object to hold the client entered details
+        const memberData = {
+            username: usernameInput,
+            password: passwordInput
+        };
+
+        // Send POST request
+        fetch('/demoapp/register', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Converts the JS Object into a JSON String
+            body: JSON.stringify(memberData)
+        })
+        .then(response => {
+            if(!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            handleRegisterAttempt(data);
+        })
+        .catch(error => console.error('Error:',error));
+    }
+}
+
+function handleRegisterAttempt(data) {
+    var registerResultDiv = document.getElementById('registerResult');
+    registerResultDiv.innerHTML = "";
+    
+    if (data === null) {
+        registerResultDiv.innerHTML = "Unable to create account. Username may already be in use.";
+    } else {
+        registerResultDiv.innerHTML = "Successfully created account";
+    }
+}
+
+
+function checkLoginState() {
+    return sessionStorage.getItem('isLoggedIn');
+}
+
+function checkLoginName() {
+    if (checkLoginState()) {
+        const loginName = sessionStorage.getItem('loginName');
+        return loginName;
+    }
+}
+
+function checkLoginType() {
+    if (checkLoginState()) {
+        const loginType = sessionStorage.getItem('loginType');
+        return loginType;
+    }
+}
+
+// Dynamically updates navbar if Member is logged in or not
+function updateNavbar() {
+    const authButton = document.getElementById('authButton');
+
+    if (checkLoginState()) {
+        authButton.innerHTML = '<button onclick="logout()">Logout</button>';
+    } else {
+        authButton.innerHTML = '<a href="login.jsp">Login</a>';
+    }
+}
+document.addEventListener('DOMContentLoaded', updateNavbar);
+
+function logout() {
+    sessionStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("loginName");
+    sessionStorage.removeItem("loginType");
+
+    updateNavbar();
+    window.location.href = 'login.jsp';
 }
