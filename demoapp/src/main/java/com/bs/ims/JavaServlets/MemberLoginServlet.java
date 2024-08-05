@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 
 import main.java.com.bs.ims.JDBC_Authentication;
 import main.java.com.bs.ims.model.Member;
+import main.java.com.bs.ims.model.HashPassword;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -50,6 +51,9 @@ public class MemberLoginServlet extends HttpServlet {
         String username = jsonObject.get("username").getAsString();
         String password = jsonObject.get("password").getAsString();
 
+        // Hash password
+        String hashedPassword = HashPassword.hashPassword(password);
+
         Member memberResult = null;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -69,7 +73,7 @@ public class MemberLoginServlet extends HttpServlet {
             String sql = "SELECT * FROM IMS_Members WHERE UserName = ? AND Pass = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1,username);
-            statement.setString(2,password);
+            statement.setString(2,hashedPassword);
 
             // Execute Query and store in ResultSet
             resultSet = statement.executeQuery();
