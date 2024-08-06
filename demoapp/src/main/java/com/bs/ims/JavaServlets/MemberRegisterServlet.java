@@ -1,25 +1,18 @@
-package main.java.com.bs.ims.JavaServlets;
+package com.bs.ims.JavaServlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.BufferedReader;
 
-import main.java.com.bs.ims.JDBC_Authentication;
-import main.java.com.bs.ims.model.Member;
-import main.java.com.bs.ims.model.HashPassword;
-import com.google.gson.Gson;
+import com.bs.ims.JDBC_Authentication;
+import com.bs.ims.model.HashPassword;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +46,6 @@ public class MemberRegisterServlet extends HttpServlet {
 
         Connection connection = null;
         PreparedStatement statement = null;
-        ResultSet resultSet = null;
 
         // Hash and Salt the password using BCrypt
         String hashedPassword = HashPassword.hashPassword(password);

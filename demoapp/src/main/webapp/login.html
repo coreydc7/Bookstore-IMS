@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description"
+        content="A small program to manage the Inventory of any Bookstore or avid book collector. This is a technical demonstration.">
+    <meta name="keywords" content="HTML,CSS,JavaScript,Java,MySQL,Apache Tomcat,Servlets">
+    <meta name="author" content="Corey Collins">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - IMS</title>
+    <script src="./script.js"></script>
+    <link href="./stylesheets/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="./fa/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="main-nav">
+            <ul>
+                <li class="logo"><img src="./images/logo.png"></li>
+                <li><a href="index.html">Home</a></li>
+                <li>Inventory</li>
+                <li>About Us</li>
+                <li id="authButton"><a href="login.html" class="login-btn"><span>Login</span></a></li>
+            </ul>
+        </div>
+
+        <div class="banner">
+            <div class="banner-text">
+                <h1>Sign into your account here!</h1>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <div class="search">
+               <input type="text" id="usernameInput" placeholder="Username:">
+               <input type="password" id="passwordInput" placeholder="Password:">
+               <button type="submit" class="searchButton" onclick="login()">
+                 <i class="fa fa-check-circle-o"></i>
+              </button>
+            </div>
+
+            <div id="loginResult"></div>
+            <br>
+            <h3>Don't have an account? <a href="register.html">Register today!</a></h3>
+         </div>
+    </div>
+</body>
+
+</html>

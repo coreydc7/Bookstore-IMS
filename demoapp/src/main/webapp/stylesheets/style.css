@@ -1,39 +1,131 @@
-:root {
-    --bodyColor: grey;
-    --navbarColor: black;
-    --fontColor: white;
-    --bodyFont: 'Cardo', serif;
-    --headerFont: 'Oswald', sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
 }
 
-body {
-    background-color: var(--bodyColor);
-    font-family: var(--bodyFont);
-    text-align: center;
+.main-container {
+    width: 100%;
+    height: 100%;
+    background: #42455a;
 }
 
-#main-navbar {
-    background-color: var(--navbarColor);
-    display: inline-block;
-    padding-left: 10px;
-    text-align: center;
-    font-family: var(--headerFont);
-    width:100%;
+.main-nav ul {
+    display: inline-flex;
+    margin: 50px;
 }
 
-#main-navbar a {
+.main-nav ul li {
+    list-style: none;
+    margin: 0 20px;
+    color: #b2b1b1;
+    cursor: pointer;
+}
+
+.main-nav ul li a {
     text-decoration: none;
-    color: var(--fontColor);
-    font-size: 20px;
-    font-weight: bold;
-    padding: 10px 20px;
-    margin: 0 10px;
+    color: #b2b1b1;
 }
 
-#main-homepage {
-    font-family: var(--bodyFont);
+.active {
+    color: #19dafa !important;
 }
 
-#main-homepage h1, h3 {
-    font-family: var(--headerFont);
+.logo img {
+    width: 60px;
+    margin-top: -15px;
+    margin-right: 48px;
+}
+
+.login-btn {
+    top: 40px;
+    right: 80px;
+    position: absolute;
+    text-decoration: none;
+    color: white;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-image: linear-gradient(#42455a, #42455a), radial-gradient(circle at top left, #fd00da, #19d7f8);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+.login-btn span {
+    display: block;
+    padding: 8px 22px;
+}
+
+.banner {
+    width: 80%;
+    height: 70%;
+    top: 25%;
+    left: 130px;
+    position: absolute;
+    color: white;
+}
+
+.banner-text {
+    float: left;
+}
+
+.banner-text h1 {
+    font-size: 43px;
+    margin-left: 40px;
+}
+
+.banner-text p {
+    width: 650px;
+    font-size: 15px;
+    margin: 30px 0 30px 40px;
+    line-height: 25px;
+    color: #b5b3b3;
+}
+
+/* Search bar: https://codepen.io/huange/pen/bGqMqM  */
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+#searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 36px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+#searchTerm:focus{
+  color: #00B4CC;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.wrap{
+  width: 30%;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#searchBooksResults {
+    position: absolute;
+    top: 60%;
+    left: 46%;
+    font-size: 14px;
 }

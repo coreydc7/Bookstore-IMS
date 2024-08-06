@@ -1,4 +1,4 @@
-package main.java.com.bs.ims.model;
+package com.bs.ims.model;
 
 public class Checkout {
     

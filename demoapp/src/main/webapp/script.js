@@ -1,5 +1,5 @@
 function searchBooks() {
-    var searchInput = document.getElementById('bookSearchInput').value.trim();
+    var searchInput = document.getElementById('searchTerm').value.trim();
     
     // Send a GET request using the Fetch API
     fetch('/demoapp/searchBooks?userInput=' + searchInput)
@@ -163,9 +163,9 @@ function updateNavbar() {
     const authButton = document.getElementById('authButton');
 
     if (checkLoginState()) {
-        authButton.innerHTML = '<button onclick="logout()">Logout</button>';
+        authButton.innerHTML = '<button class="login-btn" onclick="logout()"><span>Logout</span></button>';
     } else {
-        authButton.innerHTML = '<a href="login.jsp">Login</a>';
+        authButton.innerHTML = '<a href="login.html" class="login-btn"><span>Login</span></a>';
     }
 }
 document.addEventListener('DOMContentLoaded', updateNavbar);
@@ -176,5 +176,5 @@ function logout() {
     sessionStorage.removeItem("loginType");
 
     updateNavbar();
-    window.location.href = 'login.jsp';
+    window.location.href = 'login.html';
 }

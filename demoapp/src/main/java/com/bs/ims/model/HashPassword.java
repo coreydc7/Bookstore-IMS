@@ -1,4 +1,4 @@
-package main.java.com.bs.ims.model;
+package com.bs.ims.model;
 
 import org.mindrot.jbcrypt.BCrypt;
 
