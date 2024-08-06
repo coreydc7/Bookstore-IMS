@@ -12,32 +12,37 @@ function searchBooks() {
     })
     .then(data => {
         // Handles the response data
-        displaySearchBookResult(data);
+        const resultsHTML = createSearchResultHTML(data);
+        displaySearchBookResult(resultsHTML);
     })
     // Handles Fetch API errors
     .catch(error => console.error('Error:', error));
 }
 
-function displaySearchBookResult(books) {
-    var searchResultDiv = document.getElementById('searchBooksResults');
-    searchResultDiv.innerHTML = "";
+function createSearchResultHTML(data) {
+    let html = "<ul class='search-results'>";
 
-    if (books.length === 0) {
-        searchResultDiv.textContent = "No Books found."
-    } else {
-        var bookList = document.createElement('ul');
-        books.forEach(book => {
-            var listItem = document.createElement('li');
-            // These properies are referenced in the 'model' class for Book.
-            listItem.textContent = book.ID + ' - ' + book.title + ' - ' + book.publisher + ' - ' + book.ISBN + ' - ' + book.format + ' - ' + book.language + ' - ' + book.lexile; 
-            bookList.appendChild(listItem);
-        });
-        searchResultDiv.appendChild(bookList);
-    }
+    data.forEach(item => {
+        html += `
+            <li> 
+                <h3>${item.title}</h3>
+                <p>ISBN: ${item.ISBN}</p>
+                <p>Language: ${item.language}</p>
+                <p>Format: ${item.format}</p>
+                <p>Publisher: ${item.publisher}</p>
+                <p>Lexile: ${item.lexile}</p>
+            </li>
+        `;
+    });
+
+    html += "</ul>";
+    return html;
 }
 
-
-
+function displaySearchBookResult(html) {
+    const resultsContainer = document.getElementById('searchBooksResults');
+    resultsContainer.innerHTML = html;
+}
 
 function login() {
     var usernameInput = document.getElementById('usernameInput').value.trim();
