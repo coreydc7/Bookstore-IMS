@@ -1,4 +1,4 @@
-package main.java.com.bs.ims.JavaServlets;
+package com.bs.ims.JavaServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,19 +7,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.BufferedReader;
 
-import main.java.com.bs.ims.JDBC_Authentication;
-import main.java.com.bs.ims.model.Member;
-import main.java.com.bs.ims.model.HashPassword;
+import com.bs.ims.JDBC_Authentication;
+import com.bs.ims.model.Member;
+import com.bs.ims.model.HashPassword;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,9 +48,6 @@ public class MemberLoginServlet extends HttpServlet {
         String username = jsonObject.get("username").getAsString();
         String password = jsonObject.get("password").getAsString();
 
-        // Hash password
-        String hashedPassword = HashPassword.hashPassword(password);
-
         Member memberResult = null;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -70,10 +64,9 @@ public class MemberLoginServlet extends HttpServlet {
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
 
             // Create a PreparedStatement
-            String sql = "SELECT * FROM IMS_Members WHERE UserName = ? AND Pass = ?";
+            String sql = "SELECT * FROM IMS_Members WHERE UserName = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1,username);
-            statement.setString(2,hashedPassword);
 
             // Execute Query and store in ResultSet
             resultSet = statement.executeQuery();
@@ -83,7 +76,10 @@ public class MemberLoginServlet extends HttpServlet {
                 String foundType = resultSet.getString("UserType");
                 String foundPass = resultSet.getString("Pass");
 
-                memberResult = new Member(foundUser,foundType,foundPass);
+                // Verify that client supplied password is correct
+                if(HashPassword.checkPassword(password, foundPass)) {
+                    memberResult = new Member(foundUser,foundType,foundPass);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

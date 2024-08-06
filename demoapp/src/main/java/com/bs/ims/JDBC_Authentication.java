@@ -1,4 +1,4 @@
-package main.java.com.bs.ims;
+package com.bs.ims;
 
 public class JDBC_Authentication {
     // Populate these fields with Database Connection information for JDBC

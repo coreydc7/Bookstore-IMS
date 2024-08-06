@@ -1,4 +1,4 @@
-package main.java.com.bs.ims.JavaServlets;
+package com.bs.ims.JavaServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,12 +10,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.com.bs.ims.JDBC_Authentication;
-import main.java.com.bs.ims.model.Book;
+import com.bs.ims.JDBC_Authentication;
+import com.bs.ims.model.Book;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,10 +47,12 @@ public class BookSearchServlet extends HttpServlet {
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
 
             // Create Prepared SQL Statement
+            String sql;
             if(userInput == "") {
-                String sql = "SELECT * FROM IMS_Books";
+                sql = "SELECT * FROM IMS_Books";
+                statement = connection.prepareStatement(sql);
             } else {
-                String sql = "SELECT * FROM IMS_Books WHERE Title LIKE ? OR Publisher LIKE ? OR ISBN = ?";
+                sql = "SELECT * FROM IMS_Books WHERE Title LIKE ? OR Publisher LIKE ? OR ISBN = ?";
                 statement = connection.prepareStatement(sql);
                 statement.setString(1,"%" + userInput + "%");
                 statement.setString(2, "%" + userInput + "%");
