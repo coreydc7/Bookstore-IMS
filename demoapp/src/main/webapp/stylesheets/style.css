@@ -10,6 +10,12 @@
     background: #42455a;
 }
 
+.about-container {
+    width:100%;
+    min-height: 200vh;
+    background: #42455a;
+}
+
 .main-nav ul {
     display: inline-flex;
     margin: 50px;
@@ -87,6 +93,14 @@
     margin: 30px 0 30px 40px;
     line-height: 25px;
     color: #b5b3b3;
+}
+
+.banner-text h3 {
+    margin-left: 40px;
+}
+
+.banner-text ul {
+    margin-left:60px;
 }
 
 /* Search bar: https://codepen.io/huange/pen/bGqMqM  */
