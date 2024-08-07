@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class BookSearchServlet extends HttpServlet {
+public class InventorySearchServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // Populates with Database Connection info stored in JDBC_Authentication.java
@@ -29,7 +29,7 @@ public class BookSearchServlet extends HttpServlet {
     private static final String JDBC_PASSWORD = jdbcConnection.getPassword();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userInput = request.getParameter("userInput");
+        // String display = request.getParameter("d");
 
         List<Book> searchResult = new ArrayList<>();
         Connection connection = null;
@@ -43,27 +43,18 @@ public class BookSearchServlet extends HttpServlet {
         }
 
         try {
-            // Establish a connection with the database
+            // Establishes a connection with the database
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
 
-            // Create Prepared SQL Statement
-            String sql;
-            if(userInput == "") {
-                sql = "SELECT * FROM IMS_Books";
-                statement = connection.prepareStatement(sql);
-            } else {
-                sql = "SELECT * FROM IMS_Books WHERE Title LIKE ? OR Publisher LIKE ? OR ISBN = ?";
-                statement = connection.prepareStatement(sql);
-                statement.setString(1,"%" + userInput + "%");
-                statement.setString(2, "%" + userInput + "%");
-                statement.setString(3, userInput);
-            }
+            // Creates a Prepared SQL Statement
+            String sql = "SELECT * FROM IMS_Books";
+            statement = connection.prepareStatement(sql);
 
-            // Execute SQL Query
+            //Execute Query
             resultSet = statement.executeQuery();
 
             // Create Book objects containing information returned for each entry in Database
-            while (resultSet.next()) {
+            while(resultSet.next()) {
                 int bookID = resultSet.getInt("BookID");
                 String title = resultSet.getString("Title");
                 String publisher = resultSet.getString("Publisher");
