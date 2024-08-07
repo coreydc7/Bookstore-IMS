@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -19,7 +20,7 @@
             <ul>
                 <li class="logo"><img src="./images/logo.png"></li>
                 <li><a href="index.html" class="active">Home</a></li>
-                <li>Inventory</li>
+                <li><a href="inventory.html">Inventory</a></li>
                 <li>About Us</li>
                 <li id="authButton"><a href="login.html" class="login-btn"><span>Login</span></a></li>
             </ul>
@@ -33,18 +34,18 @@
                 <p>Make sure you are logged in to checkout a book.</p>
             </div>
         </div>
-        
+
         <!-- Search bar: https://codepen.io/huange/pen/bGqMqM -->
         <div class="wrap">
             <div class="search">
-               <input type="text" id="searchTerm" placeholder="What are you looking for?">
-               <button type="submit" class="searchButton" onclick="searchBooks()">
-                 <i class="fa fa-search"></i>
-              </button>
+                <input type="text" id="searchTerm" placeholder="What are you looking for?">
+                <button type="submit" class="searchButton" onclick="searchBooks()">
+                    <i class="fa fa-search"></i>
+                </button>
             </div>
-         </div>
+        </div>
 
-         <div id="searchBooksResults"></div>
+        <div id="searchBooksResults"></div>
     </div>
 </body>
 

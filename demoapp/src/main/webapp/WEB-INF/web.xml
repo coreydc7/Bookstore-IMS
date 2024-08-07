@@ -34,4 +34,14 @@
   <url-pattern>/register</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>InventorySearchServlet</servlet-name>
+  <servlet-class>com.bs.ims.JavaServlets.InventorySearchServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>InventorySearchServlet</servlet-name>
+  <url-pattern>/getInventory</url-pattern>
+</servlet-mapping>
+
 </web-app>
