@@ -44,4 +44,14 @@
   <url-pattern>/getInventory</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>UserSearchServlet</servlet-name>
+  <servlet-class>com.bs.ims.JavaServlets.UserSearchServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>UserSearchServlet</servlet-name>
+  <url-pattern>/searchUsers</url-pattern>
+</servlet-mapping>
+
 </web-app>

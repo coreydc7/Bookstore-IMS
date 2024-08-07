@@ -140,7 +140,7 @@
 }
 
 #searchTerm:focus {
-    color: #00B4CC;
+    color: #161717;
 }
 
 .searchButton {
@@ -224,4 +224,26 @@
 
 .inventory-results p {
     margin: 10px 0;
+}
+
+.admin-search {
+    width: 100%;
+    position: relative;
+    display: flex;
+    margin-top:-160px;
+    margin-left:-100px;
+}
+
+.userSearch-results {
+    list-style-type: none;
+}
+
+.userSearch-results h3 {
+    margin:auto;
+    margin: 10px 0 0 -150px;
+}
+
+.userSearch-results p {
+    margin:auto;
+    margin: 10px 0 0 -150px;
 }

@@ -32,6 +32,19 @@
         <div class="banner">
             <div class="banner-text">
                 <h1>Welcome to the Admin Panel!</h1>
+                <br>
+
+                <h3>Search for a user: </h3>
+                <div class="wrap">
+                    <div class="admin-search">
+                        <input type="text" id="usernameInput" placeholder="Username:">
+                        <button type="submit" class="searchButton" onclick="searchUsers()">
+                            <i class="fa fa-check-circle-o"></i>
+                        </button>
+                    </div>
+        
+                    <div id="userSearchResults"></div>
+                </div>
             </div>
         </div>
 
