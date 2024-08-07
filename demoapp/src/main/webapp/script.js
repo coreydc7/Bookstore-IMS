@@ -12,14 +12,14 @@ function searchBooks() {
     })
     .then(data => {
         // Handles the response data
-        const resultsHTML = createSearchResultHTML(data);
+        const resultsHTML = createBookSearchResultHTML(data);
         displaySearchBookResult(resultsHTML);
     })
     // Handles Fetch API errors
     .catch(error => console.error('Error:', error));
 }
 
-function createSearchResultHTML(data) {
+function createBookSearchResultHTML(data) {
     let html = "<ul class='search-results'>";
 
     data.forEach(item => {
@@ -187,4 +187,46 @@ function logout() {
 
     updateNavbar();
     window.location.href = 'login.html';
+}
+
+function searchUsers() {
+    var username = document.getElementById('usernameInput').value.trim();
+    
+    // Send a GET request using the Fetch API
+    fetch('/demoapp/searchUsers?username=' + username)
+    .then(response => {
+        if (!response.ok) {
+            // Handles HTTP errors
+            throw new Error('Network response was not OK');
+        }
+        return response.json(); // Parses the JSON Response
+    })
+    .then(data => {
+        // Handles the response data
+        const resultsHTML = createUserSearchResultHTML(data);
+        displaySearchUserResult(resultsHTML);
+    })
+    // Handles Fetch API errors
+    .catch(error => console.error('Error:', error));
+}
+
+function createUserSearchResultHTML(data) {
+    let html = "<ul class='userSearch-results'>";
+
+    data.forEach(item => {
+        html += `
+            <li> 
+                <h3>${item.username}</h3>
+                <p>${item.type}</p>
+            </li>
+        `;
+    });
+
+    html += "</ul>";
+    return html;
+}
+
+function displaySearchUserResult(html) {
+    const resultsContainer = document.getElementById('userSearchResults');
+    resultsContainer.innerHTML = html;
 }
