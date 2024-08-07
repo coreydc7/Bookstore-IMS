@@ -89,8 +89,8 @@ function handleLoginAttempt(data) {
         sessionStorage.setItem('loginName',data.username);
         sessionStorage.setItem('loginType',data.type);
         
-        updateNavbar();
         loginResultDiv.innerHTML = "Successfully logged in as " + data.username + " - " + data.type;
+        updateNavbar();
     }
 }
 
@@ -166,11 +166,16 @@ function checkLoginType() {
 // Dynamically updates navbar if Member is logged in or not
 function updateNavbar() {
     const authButton = document.getElementById('authButton');
+    const adminButton = document.getElementById('adminButton');
 
     if (checkLoginState()) {
         authButton.innerHTML = '<button class="login-btn" onclick="logout()"><span>Logout</span></button>';
     } else {
         authButton.innerHTML = '<a href="login.html" class="login-btn"><span>Login</span></a>';
+    }
+
+    if(checkLoginType() === 'Admin') {
+        adminButton.innerHTML = '<a href="adminPanel.html" class="admin-btn"><span>Admin</span></a>';
     }
 }
 document.addEventListener('DOMContentLoaded', updateNavbar);
