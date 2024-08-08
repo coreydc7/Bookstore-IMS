@@ -274,3 +274,42 @@ function handleUserUpdate(data) {
         userUpdateContainer.innerHTML = "<p>Successfully updated account</p>";
     }
 }
+
+function deleteUser() {
+    var usernameInput = document.getElementById('delete-usernameInput').value.trim();
+
+    const memberData = {
+        username: usernameInput
+    };
+
+    // Send POST request
+    fetch('/demoapp/deleteUser', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        // Converts the JS Object into a JSON String
+        body: JSON.stringify(memberData)
+    })
+    .then(response => {
+        if(!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        handleUserDelete(data);
+    })
+    .catch(error => console.error('Error:',error));
+}
+
+function handleUserDelete(data) {
+    var userDeleteContainer = document.getElementById('userDeleteResults');
+    userDeleteContainer.innerHTML = "";
+
+    if (data === null) {
+        userDeleteContainer.innerHTML = "<p>Unable to delete account. Please make sure the Username exists.</p>";
+    } else {
+        userDeleteContainer.innerHTML = "<p>Successfully deleted account</p>";
+    }
+}

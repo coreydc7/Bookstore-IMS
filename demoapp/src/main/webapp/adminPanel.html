@@ -35,21 +35,21 @@
                 <br>
 
                 <h3>Search for a user: </h3>
-                <div class="adminSearch-wrap">
-                    <div class="admin-search">
+                <div>
+                    <div class="admin-wrap">
                         <input type="text" id="userSearchInput" placeholder="Username:">
                         <button type="submit" class="searchButton" onclick="searchUsers()">
                             <i class="fa fa-check-circle-o"></i>
                         </button>
                     </div>
-        
+
                     <div id="userSearchResults"></div>
                 </div>
 
                 <br>
-                <h3 class = "admin-update-header">Update a Users information: </h3>
-                <div class="adminUpdate-wrap">
-                    <div class="admin-update">
+                <h3 class="admin-update-header">Update a Users information: </h3>
+                <div>
+                    <div class="admin-wrap">
                         <input type="text" id="update-usernameInput" placeholder="Current Username:">
                         <input type="text" id="update-newUsernameInput" placeholder="New Username:">
                         <input type="text" id="update-newUsertypeInput" placeholder="New Usertype:">
@@ -58,8 +58,21 @@
                             <i class="fa fa-check-circle-o"></i>
                         </button>
                     </div>
-        
-                    <div id="userUpdateResults"></div>
+
+                    <div id="userUpdateResults" class="admin-update-results"></div>
+                </div>
+
+                <br>
+                <h3 class="admin-delete-header">Delete a User: </h3>
+                <div>
+                    <div class="admin-wrap">
+                        <input type="text" id="delete-usernameInput" placeholder="Username:">
+                        <button type="submit" class="searchButton" onclick="deleteUser()">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+
+                    <div id="userDeleteResults" class="admin-update-results"></div>
                 </div>
             </div>
         </div>
