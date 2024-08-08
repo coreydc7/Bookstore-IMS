@@ -190,7 +190,7 @@ function logout() {
 }
 
 function searchUsers() {
-    var username = document.getElementById('usernameInput').value.trim();
+    var username = document.getElementById('userSearchInput').value.trim();
     
     // Send a GET request using the Fetch API
     fetch('/demoapp/searchUsers?username=' + username)
@@ -216,8 +216,7 @@ function createUserSearchResultHTML(data) {
     data.forEach(item => {
         html += `
             <li> 
-                <h3>${item.username}</h3>
-                <p>${item.type}</p>
+                <p>${item.username} - ${item.type}</p>
             </li>
         `;
     });
@@ -229,4 +228,49 @@ function createUserSearchResultHTML(data) {
 function displaySearchUserResult(html) {
     const resultsContainer = document.getElementById('userSearchResults');
     resultsContainer.innerHTML = html;
+}
+
+function updateUser() {
+    var usernameInput = document.getElementById('update-usernameInput').value.trim();
+    var newUsernameInput = document.getElementById('update-newUsernameInput').value.trim();
+    var newUsertypeInput = document.getElementById('update-newUsertypeInput').value.trim();
+    var newPasswordInput = document.getElementById('update-newPasswordInput').value.trim();
+
+    const memberData = {
+        username: usernameInput,
+        newUsername: newUsernameInput,
+        newUsertype: newUsertypeInput,
+        newPassword: newPasswordInput
+    };
+
+    // Send POST request
+    fetch('/demoapp/updateUser', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        // Converts the JS object into a JSON string
+        body: JSON.stringify(memberData)
+    })
+    .then(response => {
+        if(!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        handleUserUpdate(data);
+    })
+    .catch(error => console.error('Error:',error));
+}
+
+function handleUserUpdate(data) {
+    var userUpdateContainer = document.getElementById('userUpdateResults');
+    userUpdateContainer.innerHTML = "";
+
+    if (data === null) {
+        userUpdateContainer.innerHTML = "<p>Unable to update account. Username may already be in use.</p>";
+    } else {
+        userUpdateContainer.innerHTML = "<p>Successfully updated account</p>";
+    }
 }

@@ -54,4 +54,14 @@
   <url-pattern>/searchUsers</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>UserUpdateServlet</servlet-name>
+  <servlet-class>com.bs.ims.JavaServlets.UserUpdateServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>UserUpdateServlet</servlet-name>
+  <url-pattern>/updateUser</url-pattern>
+</servlet-mapping>
+
 </web-app>
