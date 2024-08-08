@@ -11,7 +11,7 @@
 }
 
 .about-container {
-    width:100%;
+    width: 100%;
     min-height: 200vh;
     background: #42455a;
 }
@@ -117,7 +117,7 @@
 }
 
 .banner-text ul {
-    margin-left:60px;
+    margin-left: 60px;
 }
 
 /* Search bar: https://codepen.io/huange/pen/bGqMqM  */
@@ -225,27 +225,25 @@
     margin: 10px 0;
 }
 
-.admin-search {
+.admin-wrap {
     width: 100%;
     display: flex;
-    margin-left:100px;
-    margin-top:20px;
-}
-
-.admin-update {
-    width: 100%;
-    display: flex;
-    margin-left:100px;
+    margin-left: 100px;
     margin-top: 20px;
 }
 
+
 .admin-update-header {
-    margin-top:100px;
+    margin-top: 10px;
+}
+
+.admin-delete-header {
+    margin-top: 10px;
 }
 
 .userSearch-results {
     list-style-type: none;
-    display:block;
+    display: block;
     margin-top: 10px;
 }
 
@@ -256,8 +254,14 @@
 }
 
 #userUpdateResults p {
-    margin-left:100px;
-    margin-top:10px;
+    margin-left: 100px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.admin-update-results p {
+    margin-left: 100px;
+    margin-top: 10px;
     font-size: 16px;
 }
 
