@@ -30,20 +30,36 @@
         <div class="separator"></div>
 
         <div class="banner">
-            <div class="banner-text">
+            <div class="admin-banner-text">
                 <h1>Welcome to the Admin Panel!</h1>
                 <br>
 
                 <h3>Search for a user: </h3>
-                <div class="wrap">
+                <div class="adminSearch-wrap">
                     <div class="admin-search">
-                        <input type="text" id="usernameInput" placeholder="Username:">
+                        <input type="text" id="userSearchInput" placeholder="Username:">
                         <button type="submit" class="searchButton" onclick="searchUsers()">
                             <i class="fa fa-check-circle-o"></i>
                         </button>
                     </div>
         
                     <div id="userSearchResults"></div>
+                </div>
+
+                <br>
+                <h3 class = "admin-update-header">Update a Users information: </h3>
+                <div class="adminUpdate-wrap">
+                    <div class="admin-update">
+                        <input type="text" id="update-usernameInput" placeholder="Current Username:">
+                        <input type="text" id="update-newUsernameInput" placeholder="New Username:">
+                        <input type="text" id="update-newUsertypeInput" placeholder="New Usertype:">
+                        <input type="text" id="update-newPasswordInput" placeholder="New Password:">
+                        <button type="submit" class="searchButton" onclick="updateUser()">
+                            <i class="fa fa-check-circle-o"></i>
+                        </button>
+                    </div>
+        
+                    <div id="userUpdateResults"></div>
                 </div>
             </div>
         </div>

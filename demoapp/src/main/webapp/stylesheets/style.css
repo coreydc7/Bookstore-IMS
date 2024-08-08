@@ -92,7 +92,6 @@
     height: 70%;
     top: 17%;
     left: 130px;
-    position: absolute;
     color: white;
 }
 
@@ -228,22 +227,45 @@
 
 .admin-search {
     width: 100%;
-    position: relative;
     display: flex;
-    margin-top:-160px;
-    margin-left:-100px;
+    margin-left:100px;
+    margin-top:20px;
+}
+
+.admin-update {
+    width: 100%;
+    display: flex;
+    margin-left:100px;
+    margin-top: 20px;
+}
+
+.admin-update-header {
+    margin-top:100px;
 }
 
 .userSearch-results {
     list-style-type: none;
-}
-
-.userSearch-results h3 {
-    margin:auto;
-    margin: 10px 0 0 -150px;
+    display:block;
+    margin-top: 10px;
 }
 
 .userSearch-results p {
-    margin:auto;
-    margin: 10px 0 0 -150px;
+    margin-left: 100px;
+    font-size: 16px;
+    color: #f9f9f9;
+}
+
+#userUpdateResults p {
+    margin-left:100px;
+    margin-top:10px;
+    font-size: 16px;
+}
+
+.admin-banner-text {
+    float: left;
+    margin-left: 40px;
+}
+
+.admin-banner-text h1 {
+    font-size: 43px;
 }
