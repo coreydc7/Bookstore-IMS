@@ -232,15 +232,6 @@
     margin-top: 20px;
 }
 
-
-.admin-update-header {
-    margin-top: 10px;
-}
-
-.admin-delete-header {
-    margin-top: 10px;
-}
-
 .userSearch-results {
     list-style-type: none;
     display: block;
@@ -268,6 +259,10 @@
 .admin-banner-text {
     float: left;
     margin-left: 40px;
+}
+
+.admin-banner-text h3 {
+    margin-top: 10px;
 }
 
 .admin-banner-text h1 {

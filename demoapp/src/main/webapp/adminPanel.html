@@ -47,7 +47,7 @@
                 </div>
 
                 <br>
-                <h3 class="admin-update-header">Update a Users information: </h3>
+                <h3>Update a Users information: </h3>
                 <div>
                     <div class="admin-wrap">
                         <input type="text" id="update-usernameInput" placeholder="Current Username:">
@@ -63,7 +63,7 @@
                 </div>
 
                 <br>
-                <h3 class="admin-delete-header">Delete a User: </h3>
+                <h3>Delete a User: </h3>
                 <div>
                     <div class="admin-wrap">
                         <input type="text" id="delete-usernameInput" placeholder="Username:">
@@ -73,6 +73,37 @@
                     </div>
 
                     <div id="userDeleteResults" class="admin-update-results"></div>
+                </div>
+
+                <br>
+                <h3>Add a Book: </h3>
+                <div>
+                    <div class="admin-wrap">
+                        <input type="text" id="book-title" placeholder="Title:">
+                        <input type="text" id="book-publisher" placeholder="Publisher:">
+                        <input type="text" id="book-isbn" placeholder="ISBN:">
+                        <input type="text" id="book-format" placeholder="Format:">
+                        <input type="text" id="book-language" placeholder="Language:">
+                        <input type="text" id="book-lexile" placeholder="Lexile:">
+                        <button type="submit" class="searchButton" onclick="addBook()">
+                            <i class="fa fa-check-circle-o"></i>
+                        </button>
+                    </div>
+
+                    <div id="bookCreateResults" class="admin-update-results"></div>
+                </div>
+
+                <br>
+                <h3>Delete a Book: </h3>
+                <div>
+                    <div class="admin-wrap">
+                        <input type="text" id="delete-book" placeholder="Title:">
+                        <button type="submit" class="searchButton" onclick="deleteBook()">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+
+                    <div id="bookDeleteResults" class="admin-update-results"></div>
                 </div>
             </div>
         </div>

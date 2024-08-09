@@ -16,30 +16,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UserDeleteServlet extends HttpServlet {
+public class BookCreateServlet  extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    // Populates with Database Connection info stored in JDBC_Authentication.java
-    public static final JDBC_Authentication jdbcConnection = new JDBC_Authentication();
+    // Populates with Database Connection information for JDBC
+    private static JDBC_Authentication jdbcConnection = new JDBC_Authentication();
+    
 	private static final String JDBC_URL = jdbcConnection.getURL();
     private static final String JDBC_USERNAME = jdbcConnection.getUsername();
-    private static final String JDBC_PASSWORD = jdbcConnection.getPassword(); 
-    
-    // Handles incoming POST requests to /demoapp/deleteUser/
+    private static final String JDBC_PASSWORD = jdbcConnection.getPassword();
+
+    // Handles incoming POST requests to /register
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Read in POST request body
-        StringBuilder jsonBuffer = new StringBuilder();
-        try (BufferedReader reader = request.getReader()) {
+         // Read in POST request body
+         StringBuilder jsonBuffer = new StringBuilder();
+         try (BufferedReader reader = request.getReader()) {
             String line;
             while ((line = reader.readLine()) != null) {
                 jsonBuffer.append(line);
             }
-        }
+         }
 
-        // Then, parse the JSON data
+         // Then, parse JSON data
         JsonObject jsonObject = JsonParser.parseString(jsonBuffer.toString()).getAsJsonObject();
-        String username = jsonObject.get("username").getAsString();
+        String title = jsonObject.get("title").getAsString();
+        String publisher = jsonObject.get("publisher").getAsString();
+        String isbn = jsonObject.get("isbn").getAsString();
+        String format = jsonObject.get("format").getAsString();
+        String lang = jsonObject.get("lang").getAsString();
+        int lexile = jsonObject.get("lexile").getAsInt();
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -55,21 +61,25 @@ public class UserDeleteServlet extends HttpServlet {
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
 
             // Create a PreparedStatement
-            String sql = "DELETE FROM IMS_Members WHERE UserName = ?";
+            String sql = "INSERT INTO IMS_Books (Title, Publisher, ISBN, Format, BookLanguage, Lexile) VALUES (?,?,?,?,?,?)";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, username);
-            
-            // Execute Update query
+            statement.setString(1, title);
+            statement.setString(2, publisher);
+            statement.setString(3, isbn);
+            statement.setString(4, format);
+            statement.setString(5, lang);
+            statement.setInt(6, lexile);
+
+            // Execute Update Query
             int rowsAffected = statement.executeUpdate();
 
             // Construct Response
             String jsonResponse;
             if (rowsAffected > 0) {
-                jsonResponse = "{\"message\": \"User Deleted successfully.\"}";
+                jsonResponse = "{\"message\": \"Book added successfully.\"}";
             } else {
                 jsonResponse = null;
             }
-
             // Send Response
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -81,6 +91,6 @@ public class UserDeleteServlet extends HttpServlet {
             try { if (statement != null) statement.close(); } catch (SQLException e) { e.printStackTrace(); }
             try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
         }
-        
+
     }
 }
