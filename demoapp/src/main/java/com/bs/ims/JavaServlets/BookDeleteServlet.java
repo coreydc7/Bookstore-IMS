@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UserDeleteServlet extends HttpServlet {
+public class BookDeleteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // Populates with Database Connection info stored in JDBC_Authentication.java
@@ -39,8 +39,8 @@ public class UserDeleteServlet extends HttpServlet {
 
         // Then, parse the JSON data
         JsonObject jsonObject = JsonParser.parseString(jsonBuffer.toString()).getAsJsonObject();
-        String username = jsonObject.get("username").getAsString();
-
+        String title = jsonObject.get("title").getAsString();
+       
         Connection connection = null;
         PreparedStatement statement = null;
 
@@ -55,17 +55,17 @@ public class UserDeleteServlet extends HttpServlet {
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
 
             // Create a PreparedStatement
-            String sql = "DELETE FROM IMS_Members WHERE UserName = ?";
+            String sql = "DELETE FROM IMS_Books WHERE title = ?";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, username);
-            
+            statement.setString(1, title);
+
             // Execute Update query
             int rowsAffected = statement.executeUpdate();
 
             // Construct Response
             String jsonResponse;
             if (rowsAffected > 0) {
-                jsonResponse = "{\"message\": \"User Deleted successfully.\"}";
+                jsonResponse = "{\"message\": \"Book Deleted successfully.\"}";
             } else {
                 jsonResponse = null;
             }
