@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description"
+        content="A small program to manage the Inventory of any Bookstore or avid book collector. This is a technical demonstration.">
+    <meta name="keywords" content="HTML,CSS,JavaScript,Java,MySQL,Apache Tomcat,Servlets">
+    <meta name="author" content="Corey Collins">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Info - IMS</title>
+    <script src="./script.js"></script>
+    <link href="./stylesheets/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="./fa/css/font-awesome.min.css">
+
+    <script>
+        window.onload= function() {
+            // Send a GET request using the Fetch API
+            fetch('/demoapp/getMemberDetails?d=1')
+            .then(response => {
+                if (!response.ok) {
+                    // Handles any HTTP errors
+                    throw new Error('Network response was not OK');
+                }
+                return response.json(); // Parses the JSON response
+            })
+            .then(data => {
+                // Handles the response data
+                const resultsHTML = createHTML(data);
+                displayMember(resultsHTML);
+            })
+            // Handles Fetch API errors
+            .catch(error => console.error('Error:',error));
+        }
+
+        function createHTML(data) {
+            const username = sessionStorage.getItem('loginName');
+            const usertype= sessionStorage.getItem('loginType');
+
+            let html = '<p>';
+            html += `${username} - ${usertype}`;
+            html += '</p>';
+
+            return html;
+        }
+
+        function displayMember(html) {
+            const container = document.getElementById('accountResult');
+            container.innerHTML = html;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="main-nav">
+            <ul>
+                <li class="logo"><img src="./images/logo.png"></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="inventory.html">Inventory</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li id="adminButton"></li>
+                <li id="authButton"></li>
+            </ul>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="banner">
+            <div class="admin-banner-text">
+                <h1>Account Information:</h1>
+                <br>
+
+                <h3>Logged in as: </h3>
+                <div id="accountResult"></div>
+                <br>
+
+                <h3>Click to view currently checkout out books:</h3>
+                <button type="submit" class="checkoutHistory()" onclick="viewCheckoutBooks()">
+                    <i class="fa fa-check-circle-o">View my Checked out books</i>
+                </button>
+                <div id="checkoutBooksResults"></div>
+                <br>
+
+                <h3>Click to view checkout history: </h3>
+                <button type="submit" class="checkoutHistory()" onclick="viewCheckoutHistory()">
+                    <i class="fa fa-check-circle-o">View my Checkout History</i>
+                </button>
+                <div id="checkoutHistoryResults"></div>
+                <br>
+
+                <h3>Change your username and/or password: </h3>
+                <div>
+                    <div class="admin-wrap">
+                        <input type="text" id="usernameInput" placeholder="New Username:">
+                        <input type="text" id="passwordInput" placeholder="New Password:">
+                        <button type="submit" class="searchButton" onclick="MemberUpdateInfo()">
+                            <i class="fa fa-check-circle-o"></i>
+                        </button>
+                    </div>
+
+                    <div id="memberUpdateResults"></div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -176,6 +176,8 @@ function updateNavbar() {
 
     if(checkLoginType() === 'Admin') {
         adminButton.innerHTML = '<a href="adminPanel.html" class="admin-btn"><span>Admin</span></a>';
+    } else if(checkLoginType() === 'Member') {
+        adminButton.innerHTML = '<a href="accountInfo.html" class="admin-btn"><span>Member Info</span></a>';
     }
 }
 document.addEventListener('DOMContentLoaded', updateNavbar);
@@ -401,4 +403,19 @@ function handleDeleteBook(data) {
     } else {
         container.innerHTML = "<p>Successfully deleted book from database.</p>";
     }
+}
+
+function viewCheckoutBooks() {
+    // TODO Issue #37
+    return true;
+}
+
+function viewCheckoutHistory() {
+    // TODO Issue #38
+    return true;
+}
+
+function MemberUpdateInfo() {
+    // TODO Issue #39
+    return true;
 }
