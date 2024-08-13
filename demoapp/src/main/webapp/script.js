@@ -83,13 +83,13 @@ function handleLoginAttempt(data) {
     loginResultDiv.innerHTML = "";
     
     if(data === null) {
-        loginResultDiv.innerHTML = "Failed to sign in. Please try again."
+        loginResultDiv.innerHTML = "<p>Failed to sign in. Please try again.</p>"
     } else {
         sessionStorage.setItem('isLoggedIn','true');
         sessionStorage.setItem('loginName',data.username);
         sessionStorage.setItem('loginType',data.type);
         
-        loginResultDiv.innerHTML = "Successfully logged in as " + data.username + " - " + data.type;
+        loginResultDiv.innerHTML = "<p>Successfully logged in as " + data.username + " - " + data.type + "</p>";
         updateNavbar();
     }
 }
@@ -102,7 +102,7 @@ function register() {
     // Check 'confirm password' field
     if(passwordInput != confirmInput) {
         var registerResultDiv = document.getElementById('registerResult');
-        registerResultDiv.innerHTML = "Passwords do not match."
+        registerResultDiv.innerHTML = "<p>Passwords do not match.</p>"
     }
     else {
         // Create an object to hold the client entered details
@@ -138,9 +138,9 @@ function handleRegisterAttempt(data) {
     registerResultDiv.innerHTML = "";
     
     if (data === null) {
-        registerResultDiv.innerHTML = "Unable to create account. Username may already be in use.";
+        registerResultDiv.innerHTML = "<p>Unable to create account. Username may already be in use.</p>";
     } else {
-        registerResultDiv.innerHTML = "Successfully created account";
+        registerResultDiv.innerHTML = "<p>Successfully created account</p>";
     }
 }
 
@@ -286,7 +286,7 @@ function deleteUser() {
     fetch('/demoapp/deleteUser', {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
         // Converts the JS Object into a JSON String
         body: JSON.stringify(memberData)
@@ -311,5 +311,94 @@ function handleUserDelete(data) {
         userDeleteContainer.innerHTML = "<p>Unable to delete account. Please make sure the Username exists.</p>";
     } else {
         userDeleteContainer.innerHTML = "<p>Successfully deleted account</p>";
+    }
+}
+
+function addBook() {
+    var title = document.getElementById('book-title').value.trim();
+    var publisher = document.getElementById('book-publisher').value.trim();
+    var isbn = document.getElementById('book-isbn').value.trim();
+    var format = document.getElementById('book-format').value.trim();
+    var lang = document.getElementById('book-language').value.trim();
+    var lexile = document.getElementById('book-lexile').value.trim();
+
+    // Creates an object to hold the entered book details
+    const bookData = {
+        title: title,
+        publisher: publisher,
+        isbn: isbn,
+        format: format,
+        lang: lang,
+        lexile: lexile
+    };
+
+    // Send POST request containing object
+    fetch('/demoapp/addBook', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        // Converts object into JSON string
+        body: JSON.stringify(bookData)
+    })
+    .then(response => {
+        if(!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        handleAddBook(data);
+    })
+    .catch(error => console.error('Error:',error));
+}
+
+function handleAddBook(data) {
+    var container = document.getElementById("bookCreateResults");
+    container.innerHTML = "";
+
+    if(data === null) {
+        container.innerHTML = "<p>Unable to add book to database. Please make sure all fields are filled out.</p>";
+    } else {
+        container.innerHTML = "<p>Successfully added book to database.</p>";
+    }
+}
+
+function deleteBook() {
+    var title = document.getElementById('delete-book').value.trim();
+
+    const bookData = {
+        title: title
+    };
+
+    // Send POST request
+    fetch('/demoapp/deleteBook', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        // Converts the JS Object into a JSON string
+        body: JSON.stringify(bookData)
+    })
+    .then(response => {
+        if(!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        handleDeleteBook(data);
+    })
+    .catch(error => console.error('Error:',error));
+}
+
+function handleDeleteBook(data) {
+    var container = document.getElementById('bookDeleteResults');
+    container.innerHTML = "";
+
+    if(data === null) {
+        container.innerHTML = "<p>Unable to delete book from database. Please make sure the title exists.</p>";
+    } else {
+        container.innerHTML = "<p>Successfully deleted book from database.</p>";
     }
 }

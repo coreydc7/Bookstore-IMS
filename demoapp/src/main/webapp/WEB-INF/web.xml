@@ -74,4 +74,24 @@
   <url-pattern>/deleteUser</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>BookCreateServlet</servlet-name>
+  <servlet-class>com.bs.ims.JavaServlets.BookCreateServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>BookCreateServlet</servlet-name>
+  <url-pattern>/addBook</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>BookDeleteServlet</servlet-name>
+  <servlet-class>com.bs.ims.JavaServlets.BookDeleteServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>BookDeleteServlet</servlet-name>
+  <url-pattern>/deleteBook</url-pattern>
+</servlet-mapping>
+
 </web-app>
