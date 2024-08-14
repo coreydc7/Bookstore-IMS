@@ -24,11 +24,12 @@ public class BookSearchServlet extends HttpServlet {
 
     // Populates with Database Connection info stored in JDBC_Authentication.java
     public static final JDBC_Authentication jdbcConnection = new JDBC_Authentication();
-	private static final String JDBC_URL = jdbcConnection.getURL();
+    private static final String JDBC_URL = jdbcConnection.getURL();
     private static final String JDBC_USERNAME = jdbcConnection.getUsername();
     private static final String JDBC_PASSWORD = jdbcConnection.getPassword();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String userInput = request.getParameter("userInput");
 
         List<Book> searchResult = new ArrayList<>();
@@ -48,13 +49,13 @@ public class BookSearchServlet extends HttpServlet {
 
             // Create Prepared SQL Statement
             String sql;
-            if(userInput == "") {
+            if (userInput == "") {
                 sql = "SELECT * FROM IMS_Books";
                 statement = connection.prepareStatement(sql);
             } else {
                 sql = "SELECT * FROM IMS_Books WHERE Title LIKE ? OR Publisher LIKE ? OR ISBN = ?";
                 statement = connection.prepareStatement(sql);
-                statement.setString(1,"%" + userInput + "%");
+                statement.setString(1, "%" + userInput + "%");
                 statement.setString(2, "%" + userInput + "%");
                 statement.setString(3, userInput);
             }
@@ -62,7 +63,8 @@ public class BookSearchServlet extends HttpServlet {
             // Execute SQL Query
             resultSet = statement.executeQuery();
 
-            // Create Book objects containing information returned for each entry in Database
+            // Create Book objects containing information returned for each entry in
+            // Database
             while (resultSet.next()) {
                 int bookID = resultSet.getInt("BookID");
                 String title = resultSet.getString("Title");
@@ -71,17 +73,33 @@ public class BookSearchServlet extends HttpServlet {
                 String format = resultSet.getString("Format");
                 String BookLanguage = resultSet.getString("BookLanguage");
                 int lexile = resultSet.getInt("Lexile");
+                String checkedOut = resultSet.getString("CheckedOut");
 
-                Book newBook = new Book(bookID,title,publisher,ISBN,format,BookLanguage,lexile);
+                Book newBook = new Book(bookID, title, publisher, ISBN, format, BookLanguage, lexile, checkedOut);
                 searchResult.add(newBook);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             // Close all resources
-            try { if (resultSet != null) resultSet.close(); } catch (SQLException e) { e.printStackTrace(); }
-            try { if (statement != null) statement.close(); } catch (SQLException e) { e.printStackTrace(); }
-            try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (statement != null)
+                    statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         // Convert searchResult into JSON and send as a response

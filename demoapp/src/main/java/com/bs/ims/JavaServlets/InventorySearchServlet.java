@@ -24,11 +24,12 @@ public class InventorySearchServlet extends HttpServlet {
 
     // Populates with Database Connection info stored in JDBC_Authentication.java
     public static final JDBC_Authentication jdbcConnection = new JDBC_Authentication();
-	private static final String JDBC_URL = jdbcConnection.getURL();
+    private static final String JDBC_URL = jdbcConnection.getURL();
     private static final String JDBC_USERNAME = jdbcConnection.getUsername();
     private static final String JDBC_PASSWORD = jdbcConnection.getPassword();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         // String display = request.getParameter("d");
 
         List<Book> searchResult = new ArrayList<>();
@@ -50,11 +51,12 @@ public class InventorySearchServlet extends HttpServlet {
             String sql = "SELECT * FROM IMS_Books";
             statement = connection.prepareStatement(sql);
 
-            //Execute Query
+            // Execute Query
             resultSet = statement.executeQuery();
 
-            // Create Book objects containing information returned for each entry in Database
-            while(resultSet.next()) {
+            // Create Book objects containing information returned for each entry in
+            // Database
+            while (resultSet.next()) {
                 int bookID = resultSet.getInt("BookID");
                 String title = resultSet.getString("Title");
                 String publisher = resultSet.getString("Publisher");
@@ -62,17 +64,33 @@ public class InventorySearchServlet extends HttpServlet {
                 String format = resultSet.getString("Format");
                 String BookLanguage = resultSet.getString("BookLanguage");
                 int lexile = resultSet.getInt("Lexile");
+                String checkedOut = resultSet.getString("CheckedOut");
 
-                Book newBook = new Book(bookID,title,publisher,ISBN,format,BookLanguage,lexile);
+                Book newBook = new Book(bookID, title, publisher, ISBN, format, BookLanguage, lexile, checkedOut);
                 searchResult.add(newBook);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             // Close all resources
-            try { if (resultSet != null) resultSet.close(); } catch (SQLException e) { e.printStackTrace(); }
-            try { if (statement != null) statement.close(); } catch (SQLException e) { e.printStackTrace(); }
-            try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (statement != null)
+                    statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         // Convert searchResult into JSON and send as a response

@@ -61,7 +61,7 @@ public class BookCreateServlet  extends HttpServlet {
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
 
             // Create a PreparedStatement
-            String sql = "INSERT INTO IMS_Books (Title, Publisher, ISBN, Format, BookLanguage, Lexile) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO IMS_Books (Title, Publisher, ISBN, Format, BookLanguage, Lexile, CheckedOut) VALUES (?,?,?,?,?,?,'0')";
             statement = connection.prepareStatement(sql);
             statement.setString(1, title);
             statement.setString(2, publisher);

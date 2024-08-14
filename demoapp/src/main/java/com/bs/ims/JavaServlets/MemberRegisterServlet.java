@@ -22,14 +22,15 @@ public class MemberRegisterServlet extends HttpServlet {
 
     // Populates with Database Connection information for JDBC
     private static JDBC_Authentication jdbcConnection = new JDBC_Authentication();
-    
-	private static final String JDBC_URL = jdbcConnection.getURL();
+
+    private static final String JDBC_URL = jdbcConnection.getURL();
     private static final String JDBC_USERNAME = jdbcConnection.getUsername();
     private static final String JDBC_PASSWORD = jdbcConnection.getPassword();
 
     // Handles incoming POST requests to /register
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         // Read in POST request body
         StringBuilder jsonBuffer = new StringBuilder();
         try (BufferedReader reader = request.getReader()) {
@@ -63,9 +64,9 @@ public class MemberRegisterServlet extends HttpServlet {
             // Create a PreparedStatement
             String sql = "INSERT INTO IMS_Members (UserName, UserType, Pass) VALUES (?,?,?)";
             statement = connection.prepareStatement(sql);
-            statement.setString(1,username);
-            statement.setString(2,"Member");
-            statement.setString(3,hashedPassword);
+            statement.setString(1, username);
+            statement.setString(2, "Member");
+            statement.setString(3, hashedPassword);
 
             // Execute Update Query
             int rowsAffected = statement.executeUpdate();
@@ -86,8 +87,18 @@ public class MemberRegisterServlet extends HttpServlet {
             e.printStackTrace();
         } finally {
             // Close all resources
-            try { if (statement != null) statement.close(); } catch (SQLException e) { e.printStackTrace(); }
-            try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try {
+                if (statement != null)
+                    statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
     }

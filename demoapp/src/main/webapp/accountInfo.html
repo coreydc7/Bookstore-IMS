@@ -14,37 +14,14 @@
     <link rel="stylesheet" href="./fa/css/font-awesome.min.css">
 
     <script>
-        window.onload= function() {
-            // Send a GET request using the Fetch API
-            fetch('/demoapp/getMemberDetails?d=1')
-            .then(response => {
-                if (!response.ok) {
-                    // Handles any HTTP errors
-                    throw new Error('Network response was not OK');
-                }
-                return response.json(); // Parses the JSON response
-            })
-            .then(data => {
-                // Handles the response data
-                const resultsHTML = createHTML(data);
-                displayMember(resultsHTML);
-            })
-            // Handles Fetch API errors
-            .catch(error => console.error('Error:',error));
-        }
-
-        function createHTML(data) {
+        window.onload = function () {
             const username = sessionStorage.getItem('loginName');
-            const usertype= sessionStorage.getItem('loginType');
+            const usertype = sessionStorage.getItem('loginType');
 
             let html = '<p>';
             html += `${username} - ${usertype}`;
             html += '</p>';
 
-            return html;
-        }
-
-        function displayMember(html) {
             const container = document.getElementById('accountResult');
             container.innerHTML = html;
         }
@@ -76,14 +53,14 @@
                 <br>
 
                 <h3>Click to view currently checkout out books:</h3>
-                <button type="submit" class="checkoutHistory()" onclick="viewCheckoutBooks()">
+                <button type="submit" onclick="viewCheckoutBooks()">
                     <i class="fa fa-check-circle-o">View my Checked out books</i>
                 </button>
                 <div id="checkoutBooksResults"></div>
                 <br>
 
                 <h3>Click to view checkout history: </h3>
-                <button type="submit" class="checkoutHistory()" onclick="viewCheckoutHistory()">
+                <button type="submit" onclick="viewCheckoutHistory()">
                     <i class="fa fa-check-circle-o">View my Checkout History</i>
                 </button>
                 <div id="checkoutHistoryResults"></div>

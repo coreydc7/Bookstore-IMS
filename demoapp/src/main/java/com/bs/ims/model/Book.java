@@ -8,8 +8,10 @@ public class Book {
     private String format;
     private String language;
     private int lexile;
+    private String checkedOut;
 
-    public Book(int ID, String title, String publisher, String ISBN, String format, String language, int lexile) {
+    public Book(int ID, String title, String publisher, String ISBN, String format, String language, int lexile,
+            String checkedOut) {
         this.ID = ID;
         this.title = title;
         this.publisher = publisher;
@@ -17,6 +19,7 @@ public class Book {
         this.format = format;
         this.language = language;
         this.lexile = lexile;
+        this.checkedOut = checkedOut;
     }
 
     // Getters and setters
@@ -46,5 +49,13 @@ public class Book {
 
     public int getLexile() {
         return lexile;
+    }
+
+    public Boolean isCheckedOut() {
+        if (checkedOut == "1") {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
