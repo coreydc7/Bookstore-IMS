@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bs.ims.JDBC_Authentication;
-import com.bs.ims.model.Member;
+import com.bs.ims.model.Checkout;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -19,20 +19,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UserSearchServlet extends HttpServlet {
+public class UserCheckoutHistory extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // Populates with Database Connection info stored in JDBC_Authentication.java
     public static final JDBC_Authentication jdbcConnection = new JDBC_Authentication();
     private static final String JDBC_URL = jdbcConnection.getURL();
     private static final String JDBC_USERNAME = jdbcConnection.getUsername();
-    private static final String JDBC_PASSWORD = jdbcConnection.getPassword();
+    private static final String JDBC_PASSWORD = jdbcConnection.getPassword();    
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
 
-        List<Member> searchResult = new ArrayList<>();
+        List<Checkout> searchResult = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -48,27 +47,26 @@ public class UserSearchServlet extends HttpServlet {
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
 
             // Create Prepared SQL Statement
-            String sql;
-            if (username == "") {
-                sql = "SELECT * FROM IMS_Members";
-                statement = connection.prepareStatement(sql);
-            } else {
-                sql = "SELECT * FROM IMS_Members WHERE UserName LIKE ?";
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, "%" + username + "%");
-            }
+            String sql = "SELECT DISTINCT b.Title, c.CheckoutDate, c.ReturnedDate " +
+             "FROM IMS_Checkout c " +
+             "JOIN IMS_Books b ON c.BookID = b.BookID " +
+             "WHERE c.UserName = ? " +
+             "ORDER BY c.CheckoutDate DESC";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,username);
 
             // Execute SQL Query
             resultSet = statement.executeQuery();
 
-            // Create Book objects containing information returned for each entry in
-            // Database
+            // Create Book objects containing information returned for each entry in Database
             while (resultSet.next()) {
-                String userName = resultSet.getString("UserName");
-                String userType = resultSet.getString("UserType");
+                String title = resultSet.getString("Title");
+                String checkoutDate = resultSet.getString("CheckoutDate");
+                String returned = resultSet.getString("ReturnedDate");
 
-                Member memberResult = new Member(userName, userType, null);
-                searchResult.add(memberResult);
+                Checkout checkoutResult = new Checkout(title,checkoutDate,returned);
+                searchResult.add(checkoutResult);
             }
         } catch (SQLException e) {
             e.printStackTrace();

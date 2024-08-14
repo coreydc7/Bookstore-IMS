@@ -104,4 +104,14 @@
   <url-pattern>/checkout</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>UserCheckoutHistory</servlet-name>
+  <servlet-class>com.bs.ims.JavaServlets.UserCheckoutHistory</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>UserCheckoutHistory</servlet-name>
+  <url-pattern>/checkoutHistory</url-pattern>
+</servlet-mapping>
+
 </web-app>
