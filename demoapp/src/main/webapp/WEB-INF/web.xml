@@ -114,4 +114,13 @@
   <url-pattern>/checkoutHistory</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>UserCheckedout</servlet-name>
+  <servlet-class>com.bs.ims.JavaServlets.UserCheckedout</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>UserCheckedout</servlet-name>
+  <url-pattern>/checkedOut</url-pattern>
+</servlet-mapping>
 </web-app>

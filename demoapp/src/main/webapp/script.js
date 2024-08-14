@@ -466,13 +466,53 @@ function handleBookCheckout(button, data) {
     }
 }
 
-function viewCheckoutBooks() {
-    // TODO Issue #37
-    return true;
+function viewCheckedoutBooks(name) {
+    var username = name;
+    
+    // Send a GET request
+    fetch('/demoapp/checkedOut?username=' + username)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handles the response data
+            const resultsHTML = createCheckedoutHTML(data);
+            displayCheckedoutResult(resultsHTML);
+        })
+        .catch(error => console.error('Error:', error));
 }
 
-function viewCheckoutHistory() {
-    var username = document.getElementById("checkoutHistory").value.trim();
+function createCheckedoutHTML(data) {
+    let html = "<p>Book's Title - Checkout Date</p>" +
+    "<ul>";
+
+    data.forEach(item => {
+        html += `
+            <li>
+                <p>${item.title} - ${item.checkoutDate}</p>
+            </li>
+        `;
+    });
+
+    html += "</ul>";
+    return html;
+}
+
+function displayCheckedoutResult(html) {
+    const resultsContainer = document.getElementById('checkedoutBooksResults');
+    resultsContainer.innerHTML = html;
+}
+
+function viewCheckoutHistory(name) {
+    var username;
+    if(name == null) {
+        username = document.getElementById("checkoutHistory").value.trim();
+    } else {
+        username = name;
+    }
 
     // Send a GET request
     fetch('/demoapp/checkoutHistory?username=' + username)
