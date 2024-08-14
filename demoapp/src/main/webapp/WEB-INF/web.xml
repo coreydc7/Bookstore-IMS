@@ -94,4 +94,14 @@
   <url-pattern>/deleteBook</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>BookCheckoutServlet</servlet-name>
+  <servlet-class>com.bs.ims.JavaServlets.BookCheckoutServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>BookCheckoutServlet</servlet-name>
+  <url-pattern>/checkout</url-pattern>
+</servlet-mapping>
+
 </web-app>

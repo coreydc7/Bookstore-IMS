@@ -14,27 +14,27 @@
     <link rel="stylesheet" href="./fa/css/font-awesome.min.css">
 
     <script>
-        window.onload = function() {
+        window.onload = function () {
             // Send a GET request using the Fetch API
             fetch('/demoapp/getInventory?d=1')
-            .then(response => {
-                if (!response.ok) {
-                    // Handles HTTP errors 
-                    throw new Error('Network response was not OK');
-                }
-                return response.json(); // Parses the JSON response
-            })
-            .then(data => {
-                // Handles the response data
-                const resultsHTML = createInventoryResultHTML(data);
-                displayInventoryResults(resultsHTML);
-            })
-            // Handles Fetch API errors
-            .catch(error => console.error('Error:', error));
+                .then(response => {
+                    if (!response.ok) {
+                        // Handles HTTP errors 
+                        throw new Error('Network response was not OK');
+                    }
+                    return response.json(); // Parses the JSON response
+                })
+                .then(data => {
+                    // Handles the response data
+                    const resultsHTML = createInventoryResultHTML(data);
+                    displayInventoryResults(resultsHTML);
+                })
+                // Handles Fetch API errors
+                .catch(error => console.error('Error:', error));
         }
 
         function createInventoryResultHTML(data) {
-            let html ="<ul class='inventory-results'>";
+            let html = "<ul class='inventory-results'>";
 
             data.forEach(item => {
                 html += `
@@ -45,8 +45,26 @@
                         <p>Format: ${item.format}</p>
                         <p>Publisher: ${item.publisher}</p>
                         <p>Lexile: ${item.lexile}</p>
-                    </li>
-                `;
+                   `;
+
+                // Book is checked out
+                if (item.checkedOut == 1) {
+                    html += `
+                <div id="checkout-btn">
+                <button type="submit" class="checkout-btn-out">
+                <i class="fa fa-times-circle-o">Checked Out</i>
+                </button>
+                </div>
+                </li>
+            `
+                } else {
+                    html += `
+                <button type="submit" class="checkout-btn-in" onclick="checkoutBook(this, '${item.title}')">
+                <i class="fa fa-check-circle-o">Checkout</i>
+                </button>
+                </li>
+            `
+                }
             });
 
             html += "</ul>";
@@ -75,45 +93,7 @@
 
         <div class="separator"></div>
 
-        <div id="inventoryResults">
-            <ul class="inventory-results">
-                <li> 
-                    <h3>The Hobbit (The Lord of the Rings)</h3>
-                    <p>ISBN: 978-0618260300</p>
-                    <p>Language: English</p>
-                    <p>Format: Paperback</p>
-                    <p>Publisher: Clarion Books; Young Reader ed. edition (August 15, 2002)</p>
-                    <p>Lexile: 1000</p>
-                </li>
-            
-                <li> 
-                    <h3>Treasure Island</h3>
-                    <p>ISBN: 979-8623553805</p>
-                    <p>Language: English</p>
-                    <p>Format: Paperback</p>
-                    <p>Publisher: Independently published (March 11, 2020)</p>
-                    <p>Lexile: 760</p>
-                </li>
-            
-                <li> 
-                    <h3>Fahrenheit 451</h3>
-                    <p>ISBN: 978-1451673319</p>
-                    <p>Language: English</p>
-                    <p>Format: Paperback</p>
-                    <p>Publisher: Simon &amp; Schuster; Reissue edition (January 10, 2012)</p>
-                    <p>Lexile: 890</p>
-                </li>
-            
-                <li> 
-                    <h3>Fairy Tale</h3>
-                    <p>ISBN: 978-1668002193</p>
-                    <p>Language: English</p>
-                    <p>Format: Paperback</p>
-                    <p>Publisher: Scribner (June 6, 2023)</p>
-                    <p>Lexile: 0</p>
-                </li>
-            </ul>
-        </div>
+        <div id="inventoryResults"></div>
 </body>
 
 </html>
