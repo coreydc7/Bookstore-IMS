@@ -423,7 +423,7 @@ function handleDeleteBook(data) {
 
 function checkoutBook(button, title) {
     // Must be logged in to checkout a book
-    if(!checkLoginState()) {
+    if (!checkLoginState()) {
         alert("You must be logged in to checkout a book.");
     } else {
         var username = checkLoginName();
@@ -443,22 +443,22 @@ function checkoutBook(button, title) {
             // Convert JS Object into a JSON String
             body: JSON.stringify(checkoutData)
         })
-        .then(response => {
-            if(!response.ok) {
-                // Handles any HTTP errors
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json(); // Parses the JSON response
-        })
-        .then(data => {
-            // Handles the response data
-            handleBookCheckout(button, data);
-        })
-        .catch(error => console.error('Error:',error));
+            .then(response => {
+                if (!response.ok) {
+                    // Handles any HTTP errors
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json(); // Parses the JSON response
+            })
+            .then(data => {
+                // Handles the response data
+                handleBookCheckout(button, data);
+            })
+            .catch(error => console.error('Error:', error));
     }
 }
 
-function handleBookCheckout(button, data) {    
+function handleBookCheckout(button, data) {
     if (data === null) {
         alert("Error checking out book.");
     } else {
@@ -472,8 +472,43 @@ function viewCheckoutBooks() {
 }
 
 function viewCheckoutHistory() {
-    // TODO Issue #38
-    return true;
+    var username = document.getElementById("checkoutHistory").value.trim();
+
+    // Send a GET request
+    fetch('/demoapp/checkoutHistory?username=' + username)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handles the response data
+            const resultsHTML = createCheckoutHistoryHTML(data);
+            displayCheckoutHistoryResult(resultsHTML);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function createCheckoutHistoryHTML(data) {
+    let html = "<p>Book's Title - Checkout Date - Date Returned</p>" +
+    "<ul>";
+
+    data.forEach(item => {
+        html += `
+            <li>
+                <p>${item.title} - ${item.checkoutDate} - ${item.returned}</p>
+            </li>
+        `;
+    });
+
+    html += "</ul>";
+    return html;
+}
+
+function displayCheckoutHistoryResult(html) {
+    const resultsContainer = document.getElementById('checkoutHistoryResults');
+    resultsContainer.innerHTML = html;
 }
 
 function MemberUpdateInfo() {
