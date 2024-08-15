@@ -635,3 +635,42 @@ function handleReturnBook(data) {
         container.innerHTML = "<p>Successfully returned book.</p>";
     }
 }
+
+function bookHistory() {
+    var title = document.getElementById('bookHistory').value.trim();
+
+    // Send a GET request
+    fetch('/demoapp/bookHistory?title=' + title)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const resultsHTML = createBookHistoryHtml(data);
+            displayBookHistoryResult(resultsHTML);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function createBookHistoryHtml(data) {
+    let html = "<p>Username - Checkout Date - Date Returned</p>" +
+        "<ul>";
+
+    data.forEach(item => {
+        html += ` 
+            <li>
+                <p>${item.username} - ${item.checkoutDate} - ${item.returned}</p>
+            </li>
+        `;
+    });
+
+    html += "</ul>";
+    return html;
+}
+
+function displayBookHistoryResult(html) {
+    const resultsContainer = document.getElementById('bookHistoryResults');
+    resultsContainer.innerHTML = html;
+}

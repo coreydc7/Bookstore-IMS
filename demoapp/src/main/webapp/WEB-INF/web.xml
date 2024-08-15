@@ -144,4 +144,14 @@
   <url-pattern>/bookReturn</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>BookHistoryServlet</servlet-name>
+  <servlet-class>com.bs.ims.JavaServlets.BookHistoryServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>BookHistoryServlet</servlet-name>
+  <url-pattern>/bookHistory</url-pattern>
+</servlet-mapping>
+
 </web-app>

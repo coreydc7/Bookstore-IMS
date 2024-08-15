@@ -21,13 +21,14 @@ public class UserDeleteServlet extends HttpServlet {
 
     // Populates with Database Connection info stored in JDBC_Authentication.java
     public static final JDBC_Authentication jdbcConnection = new JDBC_Authentication();
-	private static final String JDBC_URL = jdbcConnection.getURL();
+    private static final String JDBC_URL = jdbcConnection.getURL();
     private static final String JDBC_USERNAME = jdbcConnection.getUsername();
-    private static final String JDBC_PASSWORD = jdbcConnection.getPassword(); 
-    
+    private static final String JDBC_PASSWORD = jdbcConnection.getPassword();
+
     // Handles incoming POST requests to /demoapp/deleteUser/
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         // Read in POST request body
         StringBuilder jsonBuffer = new StringBuilder();
         try (BufferedReader reader = request.getReader()) {
@@ -58,7 +59,7 @@ public class UserDeleteServlet extends HttpServlet {
             String sql = "DELETE FROM IMS_Members WHERE UserName = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);
-            
+
             // Execute Update query
             int rowsAffected = statement.executeUpdate();
 
@@ -78,9 +79,19 @@ public class UserDeleteServlet extends HttpServlet {
             e.printStackTrace();
         } finally {
             // Close all resources
-            try { if (statement != null) statement.close(); } catch (SQLException e) { e.printStackTrace(); }
-            try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try {
+                if (statement != null)
+                    statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        
+
     }
 }

@@ -26,9 +26,10 @@ public class UserCheckoutHistory extends HttpServlet {
     public static final JDBC_Authentication jdbcConnection = new JDBC_Authentication();
     private static final String JDBC_URL = jdbcConnection.getURL();
     private static final String JDBC_USERNAME = jdbcConnection.getUsername();
-    private static final String JDBC_PASSWORD = jdbcConnection.getPassword();    
+    private static final String JDBC_PASSWORD = jdbcConnection.getPassword();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String username = request.getParameter("username");
 
         List<Checkout> searchResult = new ArrayList<>();
@@ -48,24 +49,25 @@ public class UserCheckoutHistory extends HttpServlet {
 
             // Create Prepared SQL Statement
             String sql = "SELECT DISTINCT b.Title, c.CheckoutDate, c.ReturnedDate " +
-             "FROM IMS_Checkout c " +
-             "JOIN IMS_Books b ON c.BookID = b.BookID " +
-             "WHERE c.UserName = ? " +
-             "ORDER BY c.CheckoutDate DESC";
+                    "FROM IMS_Checkout c " +
+                    "JOIN IMS_Books b ON c.BookID = b.BookID " +
+                    "WHERE c.UserName = ? " +
+                    "ORDER BY c.CheckoutDate DESC";
 
             statement = connection.prepareStatement(sql);
-            statement.setString(1,username);
+            statement.setString(1, username);
 
             // Execute SQL Query
             resultSet = statement.executeQuery();
 
-            // Create Book objects containing information returned for each entry in Database
+            // Create Book objects containing information returned for each entry in
+            // Database
             while (resultSet.next()) {
                 String title = resultSet.getString("Title");
                 String checkoutDate = resultSet.getString("CheckoutDate");
                 String returned = resultSet.getString("ReturnedDate");
 
-                Checkout checkoutResult = new Checkout(title,checkoutDate,returned);
+                Checkout checkoutResult = new Checkout(title, checkoutDate, returned);
                 searchResult.add(checkoutResult);
             }
         } catch (SQLException e) {

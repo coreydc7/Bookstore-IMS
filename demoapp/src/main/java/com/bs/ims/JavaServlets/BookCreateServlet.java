@@ -16,29 +16,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class BookCreateServlet  extends HttpServlet {
+public class BookCreateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // Populates with Database Connection information for JDBC
     private static JDBC_Authentication jdbcConnection = new JDBC_Authentication();
-    
-	private static final String JDBC_URL = jdbcConnection.getURL();
+
+    private static final String JDBC_URL = jdbcConnection.getURL();
     private static final String JDBC_USERNAME = jdbcConnection.getUsername();
     private static final String JDBC_PASSWORD = jdbcConnection.getPassword();
 
     // Handles incoming POST requests to /register
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         // Read in POST request body
-         StringBuilder jsonBuffer = new StringBuilder();
-         try (BufferedReader reader = request.getReader()) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Read in POST request body
+        StringBuilder jsonBuffer = new StringBuilder();
+        try (BufferedReader reader = request.getReader()) {
             String line;
             while ((line = reader.readLine()) != null) {
                 jsonBuffer.append(line);
             }
-         }
+        }
 
-         // Then, parse JSON data
+        // Then, parse JSON data
         JsonObject jsonObject = JsonParser.parseString(jsonBuffer.toString()).getAsJsonObject();
         String title = jsonObject.get("title").getAsString();
         String publisher = jsonObject.get("publisher").getAsString();
@@ -88,8 +89,18 @@ public class BookCreateServlet  extends HttpServlet {
             e.printStackTrace();
         } finally {
             // Close all resources
-            try { if (statement != null) statement.close(); } catch (SQLException e) { e.printStackTrace(); }
-            try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try {
+                if (statement != null)
+                    statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
     }
