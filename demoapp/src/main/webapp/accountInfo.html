@@ -52,15 +52,15 @@
                 <div id="accountResult"></div>
                 <br>
 
-                <h3>Click to view currently checkout out books:</h3>
-                <button type="submit" onclick="viewCheckoutBooks()">
+                <h3>Click to view currently checked out books:</h3>
+                <button type="submit" onclick="viewCheckedoutBooks(sessionStorage.getItem('loginName'))">
                     <i class="fa fa-check-circle-o">View my Checked out books</i>
                 </button>
-                <div id="checkoutBooksResults"></div>
+                <div id="checkedoutBooksResults"></div>
                 <br>
 
                 <h3>Click to view checkout history: </h3>
-                <button type="submit" onclick="viewCheckoutHistory()">
+                <button type="submit" onclick="viewCheckoutHistory(sessionStorage.getItem('loginName'))">
                     <i class="fa fa-check-circle-o">View my Checkout History</i>
                 </button>
                 <div id="checkoutHistoryResults"></div>
