@@ -6,14 +6,15 @@
 
 .main-container {
     width: 100%;
-    min-height: 140vh;
+    min-height: 100vh;
     background: #42455a;
 }
 
-.about-container {
-    width: 100%;
-    min-height: 250vh;
-    background: #42455a;
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    background-color: #42455a;
 }
 
 .main-nav ul {
