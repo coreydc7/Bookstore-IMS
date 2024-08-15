@@ -134,4 +134,14 @@
   <url-pattern>/memberUpdateInfo</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>BookReturnServlet</servlet-name>
+  <servlet-class>com.bs.ims.JavaServlets.BookReturnServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>BookReturnServlet</servlet-name>
+  <url-pattern>/bookReturn</url-pattern>
+</servlet-mapping>
+
 </web-app>

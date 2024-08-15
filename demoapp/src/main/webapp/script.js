@@ -591,9 +591,47 @@ function handleMemberInfoUpdate(data) {
     var container = document.getElementById('memberUpdateResults');
     container.innerHTML = "";
 
-    if(data == null) {
+    if (data == null) {
         container.innerHTML = "<p>Unable to update account. Please make sure both fields are filled in.</p>";
     } else {
         container.innerHTML = "<p>Successfully updated account</p>";
+    }
+}
+
+function bookReturn() {
+    var title = document.getElementById('bookReturn').value.trim();
+
+    const bookData = {
+        title: title
+    };
+
+    // Sends POST
+    fetch('/demoapp/bookReturn', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bookData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            handleReturnBook(data);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function handleReturnBook(data) {
+    var container = document.getElementById('bookReturnResults');
+    container.innerHTML = "";
+
+    if (data === null) {
+        container.innerHTML = "<p>Unable to check book back in. Please make sure the title exists.</p>";
+    } else {
+        container.innerHTML = "<p>Successfully returned book.</p>";
     }
 }

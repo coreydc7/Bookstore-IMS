@@ -60,7 +60,7 @@ public class UserCheckedout extends HttpServlet {
             // Execute SQL Query
             resultSet = statement.executeQuery();
 
-            // Create Book objects containing information returned for each entry in
+            // Create objects containing information returned for each entry in
             // Database
             while (resultSet.next()) {
                 String title = resultSet.getString("Title");
