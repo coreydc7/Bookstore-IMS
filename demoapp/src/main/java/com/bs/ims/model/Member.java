@@ -14,6 +14,7 @@ public class Member {
     public String getUsername() {
         return this.username;
     }
+
     public String getType() {
         return this.type;
     }

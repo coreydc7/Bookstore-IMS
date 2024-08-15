@@ -67,7 +67,7 @@ public class BookReturnServlet extends HttpServlet {
             if (rowsAffected > 0) {
                 sql = "UPDATE IMS_Books SET CheckedOut = '0' WHERE title = ?";
                 statement = connection.prepareStatement(sql);
-                statement.setString(1,title);
+                statement.setString(1, title);
 
                 int updateRows = statement.executeUpdate();
 

@@ -12,10 +12,18 @@
     <script src="./script.js"></script>
     <link href="./stylesheets/style.css" rel="stylesheet">
     <link rel="stylesheet" href="./fa/css/font-awesome.min.css">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (sessionStorage.getItem('loginType') !== 'Admin') {
+                window.location.href = 'index.html'; // Redirect back to index if not logged in as admin
+            }
+        });
+    </script>
 </head>
 
 <body>
-    <div class="main-container">
+    <div class="flex-container">
         <div class="main-nav">
             <ul>
                 <li class="logo"><img src="./images/logo.png"></li>
@@ -117,21 +125,35 @@
                     </div>
 
                     <div id="checkoutHistoryResults" class="admin-update-results">
-                    </div>   
-                </div>    
-                
+                    </div>
+                </div>
+
                 <br>
                 <h3>Return a book:</h3>
                 <div>
                     <div class="admin-wrap">
                         <input type="text" id="bookReturn" placeholder="Title:">
-                        <button type="submit" class="searchButton" onclick="returnBook()">
+                        <button type="submit" class="searchButton" onclick="bookReturn()">
                             <i class="fa fa-check-circle-o"></i>
                         </button>
                     </div>
 
                     <div id="bookReturnResults" class="admin-update-results">
-                    </div>   
+                    </div>
+                </div>
+
+                <br>
+                <h3>View a books checkout history:</h3>
+                <div>
+                    <div class="admin-wrap">
+                        <input type="text" id="bookHistory" placeholder="Title:">
+                        <button type="submit" class="searchButton" onclick="bookHistory()">
+                            <i class="fa fa-check-circle-o"></i>
+                        </button>
+                    </div>
+
+                    <div id="bookHistoryResults" class="admin-update-results">
+                    </div>
                 </div>
             </div>
         </div>

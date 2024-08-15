@@ -1,14 +1,22 @@
 package com.bs.ims.model;
 
 public class Checkout {
-    private String title; 
+    private String title;
     private String checkoutDate;
     private String returned;
+    private String username;
 
     public Checkout(String title, String checkoutDate, String returned) {
         this.title = title;
         this.checkoutDate = checkoutDate;
         this.returned = returned;
+    }
+
+    public Checkout(String title, String checkoutDate, String returned, String username) {
+        this.title = title;
+        this.checkoutDate = checkoutDate;
+        this.returned = returned;
+        this.username = username;
     }
 
     public String getTitle() {
@@ -21,5 +29,9 @@ public class Checkout {
 
     public String getCheckoutDate() {
         return this.checkoutDate;
+    }
+
+    public String getUsername() {
+        return this.username;
     }
 }
