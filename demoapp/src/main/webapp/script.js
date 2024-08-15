@@ -468,7 +468,7 @@ function handleBookCheckout(button, data) {
 
 function viewCheckedoutBooks(name) {
     var username = name;
-    
+
     // Send a GET request
     fetch('/demoapp/checkedOut?username=' + username)
         .then(response => {
@@ -487,7 +487,7 @@ function viewCheckedoutBooks(name) {
 
 function createCheckedoutHTML(data) {
     let html = "<p>Book's Title - Checkout Date</p>" +
-    "<ul>";
+        "<ul>";
 
     data.forEach(item => {
         html += `
@@ -508,7 +508,7 @@ function displayCheckedoutResult(html) {
 
 function viewCheckoutHistory(name) {
     var username;
-    if(name == null) {
+    if (name == null) {
         username = document.getElementById("checkoutHistory").value.trim();
     } else {
         username = name;
@@ -532,7 +532,7 @@ function viewCheckoutHistory(name) {
 
 function createCheckoutHistoryHTML(data) {
     let html = "<p>Book's Title - Checkout Date - Date Returned</p>" +
-    "<ul>";
+        "<ul>";
 
     data.forEach(item => {
         html += `
@@ -554,4 +554,46 @@ function displayCheckoutHistoryResult(html) {
 function MemberUpdateInfo() {
     // TODO Issue #39
     return true;
+}
+
+function MemberUpdateInfo() {
+    var username = sessionStorage.getItem('loginName');
+    var usernameInput = document.getElementById("usernameInput").value.trim();
+    var passwordInput = document.getElementById("passwordInput").value.trim();
+
+    const memberData = {
+        username: username,
+        newUsername: usernameInput,
+        password: passwordInput
+    };
+
+    // Send POST
+    fetch('/demoapp/memberUpdateInfo', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(memberData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            handleMemberInfoUpdate(data);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function handleMemberInfoUpdate(data) {
+    var container = document.getElementById('memberUpdateResults');
+    container.innerHTML = "";
+
+    if(data == null) {
+        container.innerHTML = "<p>Unable to update account. Please make sure both fields are filled in.</p>";
+    } else {
+        container.innerHTML = "<p>Successfully updated account</p>";
+    }
 }

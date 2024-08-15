@@ -123,4 +123,15 @@
   <servlet-name>UserCheckedout</servlet-name>
   <url-pattern>/checkedOut</url-pattern>
 </servlet-mapping>
+
+<servlet>
+  <servlet-name>UserSelfUpdateServlet</servlet-name>
+  <servlet-class>com.bs.ims.JavaServlets.UserSelfUpdateServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>UserSelfUpdateServlet</servlet-name>
+  <url-pattern>/memberUpdateInfo</url-pattern>
+</servlet-mapping>
+
 </web-app>
