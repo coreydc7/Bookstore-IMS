@@ -25,7 +25,7 @@
 <h3 align="center">Bookstore Inventory Management System</h3>
 
   <p align="center">
-    A software solution for a local bookstore's Inventory Management Solution
+    A software implementation of an Inventory Management Solution
   </p>
 </div>
 
@@ -45,11 +45,9 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#features">Features</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -62,18 +60,21 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project will consist of an interactive and dynamic website allowing users to search, checkout, and view various books within the system. Alongside support for bookstores employees to manage, add, delete, and edit users and books. 
+This project consists of an interactive and dynamic full-stack application, allowing for the management of a local Bookstores Inventory. Members can search, checkout, and view books within the system. Employees have access to all these features alongside an Administrator panel allowing for direct modification of the system. 
 
-We will be using Maven to manage the build of our project as well as further dependencies. As per deployment of our server we will be using Apache Tomcat 8.5.50 for processesing and deploying our application. 
+All logins are handled by the application itself, and utilizes full Encryption and Salting on all passwords to ensure maximum security. All user input boxes utilize sanitization and MySQL Prepared Statements to ensure that system protects against bad actors interacting with the front-end. The Administrator panel utilizes checks and specific cookies to ensure that only those logged in with an Admin account have access to admin functionality.  
 
-For front-end development, HTML/CSS will be useful for webpage design and Javascript for embedded functionality and presentation of API responses. Back-end development will see the use of Java Servlets to handle requests/responses sent from our server and database.
+Maven is used as the build manager for our project, and it can be deployed on any web server. During development we used an Apache Tomcat 8.5.50 server for processing and deployment. 
 
-The database will employ a relational database schema to construct and design our bookstore functionality. As a result we planned on using MySQL to operate with our database and make adjustments to our data.
+This Inventory Mangement Software features an interactive front-end using vanilla HTML/CSS and utilizes JavaScript for embedded functionality and making API calls. The back-end utilizes a custom API using Java Servlets to handle API calls and communicate with a MySQL Database.
 
-This will be handled using the Java Database Connectivity (JDBC) API for executing our queries from our server.
+The database employs a relational database schema to efficiently store and retrieve any information needed about the Inventory. As a result we are employing MySQL to operate the database.
+
+By utilizing the Java Database Connectivity (JDBC) API, we are able to handle and execute SQL queries using the information provided in the API calls to provide all sorts of functionality. 
 
 
-![Image of landing page for Bookstore](https://github.com/coreydc7/Bookstore-IMS/assets/106626355/fe538cc1-4ae1-49e1-9ce1-6fb67377c83c)
+![Landing Page](https://github.com/user-attachments/assets/9a649879-18e9-4643-a5da-133bf1db003c)
+
 
 
 
@@ -84,14 +85,12 @@ This will be handled using the Java Database Connectivity (JDBC) API for executi
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* Maven
+* SQL
+* Java
+* JavaScript
+* HTML
+* CSS
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -100,61 +99,48 @@ This will be handled using the Java Database Connectivity (JDBC) API for executi
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running follow these example steps.
+
+* Clone the GitHub repo to a local folder
+* Connect to your database by entering the database URL, username, and password in the JDBC_Authentication.java file.
+* Use maven to build the project, by typing the following commands in order.
+   ```sh
+  mvn clean
+  ```
+    ```sh
+  mvn compile
+  ```
+     ```sh
+  mvn package
+  ```
+
+     This will use Maven to build the .war file, which can be deployed as a deployment on any HTTP web server.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/coreydc7/Bookstore-IMS.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+* In order to compile and build the project, Apache Maven is used. The instructions for downloading and installing Maven can be found here: https://maven.apache.org/install.html
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-<!-- USAGE EXAMPLES -->
-## Usage
+<!-- FEATURES EXAMPLES -->
+## Features
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+- Uses a modern relational Database schema to track various information about Books currently in the catalog, account information, and maintain a checkout history for the whole store.
+- Search for books on the main page, or view the entire inventory on the inventory page.
+![Screenshot 2024-08-19 140647](https://github.com/user-attachments/assets/8a7949dd-bdcf-498c-975d-5f883f89e2ac)
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+- A full login and registration system, which allows for creating new accounts. It is required for someone to be logged in to checkout a book and update the checkout record.
+*   Each account password is encrypted and then salted with a custom Salt before storing in the database.
+- Member accounts can checkout books, view their checkout history, and update information about their account from the Members panel. 
+![Screenshot 2024-08-19 140904](https://github.com/user-attachments/assets/9c058a5f-a7ac-411c-a311-6afe0c166a71)
+- Administrator accounts have full control over the database, such as: Searching for individual members, Updating members account information (and type), Deleting a member, Adding books, Deleting books, Viewing members total checkout history, Marking books as returned after checkout, Viewing books total checkout history.
+  ![Screenshot 2024-08-19 141457](https://github.com/user-attachments/assets/b0734c36-08c5-4b7e-878a-0641f690a5b9)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/coreydc7/Bookstore-IMS/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -186,7 +172,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Your Name - Corey Collins - corey.dc@outlook.com
 
 Project Link: [https://github.com/coreydc7/Bookstore-IMS](https://github.com/coreydc7/Bookstore-IMS)
 
